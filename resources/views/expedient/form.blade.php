@@ -131,68 +131,25 @@
 
 <!--//Script para bloquear los campos si es que ya existe un cliente--> 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const idClientSelect = document.getElementById('id_client');
-        const firstNameInput = document.getElementById('first_name');
-        const lastNameInput = document.getElementById('last_name');
-        const directionInput = document.getElementById('direction');
-        const genderInput = document.getElementById('gender');
-        const phoneNumberInput = document.getElementById('phone_number');
-        const ageInput = document.getElementById('age');
-
+    document.addEventListener('DOMContentLoaded', function() {
         function toggleClientFields() {
-            const clientId = idClientSelect.value;
+            var clientSelect = document.getElementById('id_client');
+            var fields = ['first_name', 'last_name', 'direction', 'gender', 'phone_number', 'age'];
 
-            if (clientId && clientId !== 'new_client') {
-                // Disable fields if selecting an existing client
-                [firstNameInput, lastNameInput, directionInput, genderInput, phoneNumberInput, ageInput].forEach(field => {
-                    field.setAttribute('readonly', 'readonly');
+            if(clientSelect.value === 'new_client'){
+                fields.forEach(function(field){
+                    document.getElementById(field).removeAttribute('readonly');
                 });
-
-                // Fetch and populate client data
-                fetch(`/clients/${clientId}`)
-                    .then(response => {
-                        console.log('HTTP Status:', response.status); // Imprime el código de estado HTTP
-                        return response.text(); // Obtén el texto de la respuesta
-                    })
-                    .then(text => {
-                        console.log('Response Text:', text); // Imprime el texto de la respuesta
-
-                        let data;
-                        try {
-                            data = JSON.parse(text); // Intenta parsear el texto como JSON
-                        } catch (error) {
-                            throw new Error('Invalid JSON format'); // Lanza un error si el JSON es inválido
-                        }
-
-                        console.log('Client Data:', data); // Imprime los datos del cliente
-
-                        // Asigna los valores a los campos
-                        firstNameInput.value = data.first_name || '';
-                        lastNameInput.value = data.last_name || '';
-                        directionInput.value = data.direction || '';
-                        genderInput.value = data.gender || '';
-                        phoneNumberInput.value = data.phone_number || '';
-                        ageInput.value = data.age || '';
-                    })
-                    .catch(error => {
-                        console.error('Error fetching client data:', error);
-                        alert('There was an error fetching client data. Please try again.');
-                    });
             } else {
-                // Enable fields and clear them if "Crear nuevo cliente" is selected
-                [firstNameInput, lastNameInput, directionInput, genderInput, phoneNumberInput, ageInput].forEach(field => {
-                    field.removeAttribute('readonly');
-                    field.value = '';
+                fields.forEach(function(field) {
+                    document.getElementById(field).setAttribute('readonly', 'readonly');
+                    document.getElementById(field).value = '';
                 });
             }
         }
 
-        // Attach the event handler for the client selection
-        idClientSelect.addEventListener('change', toggleClientFields);
-
-        // Initial call to set the correct state of fields on page load
-        toggleClientFields();
+        // Asegúrate de adjuntar el evento onchange al seleccionar el elemento, ya que es posible que el elemento no esté cargado antes.
+        document.getElementById('id_client').onchange = toggleClientFields;
     });
 </script>
 
