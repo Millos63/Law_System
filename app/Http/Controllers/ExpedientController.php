@@ -34,9 +34,17 @@ class ExpedientController extends Controller
         //Para acceder a todos nuestros clientes
 
         $clients = Client::all();
+
+        //Para poder mostrar la información del cliente seleccionado en los inputs al seleccionar un cliente en el expediente
+        $selected_client = null;
+
+        if($request->has('id_client')) {
+            $selected_client = Client::find($request->get('id_client'));
+        
+        }
         $expedient = new Expedient();
         $client = new Client();
-        return view('expedient.create', compact('expedient', 'client', 'clients'));
+        return view('expedient.create', compact('expedient', 'client', 'clients','selected_client'));
     }
 
     /**
@@ -114,7 +122,6 @@ class ExpedientController extends Controller
         $clients = Client::all();
 
         //Modificando para poder editar al mismo tiempo el cliente también, mostrando la información en los inputs del cliente que corresponde
-
         $client = Client::find($expedient->id_client);
 
 

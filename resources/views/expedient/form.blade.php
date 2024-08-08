@@ -5,16 +5,18 @@
 
         <div class="form-group mb-2 mb20">
             <label for="id_client" class="form-label">{{ __('id_client') }}</label>
-            <select name="id_client" class="form-control @error('id_client') is-invalid @enderror"  id="id_client" placeholder="Id Client" onchange="toggleClientFields()">
-                @foreach($clients as $client)
-                    <option value="{{$client->id}}"{{ old('id_client', $expedient?->id_client) == $client->id ? 'selected' : ''}}>
-                        {{$client->first_name}}
-                        {{$client->last_name}}
-                    </option>   
-                @endforeach
-                <option value = 'new_client'> Crear nuevo cliente </option>
-            </select>
-            {!! $errors->first('id_client', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <form method="GET" action="{{ route ('expedients.create') }}">
+                <select name="id_client" class="form-control @error('id_client') is-invalid @enderror"  id="id_client" placeholder="Id Client" onchange="toggleClientFields()">
+                    @foreach($clients as $client)
+                        <option value="{{$client->id}}"{{ old('id_client', $expedient?->id_client) == $client->id ? 'selected' : ''}}>
+                            {{$client->first_name}}
+                            {{$client->last_name}}
+                        </option>   
+                    @endforeach
+                    <option value = 'new_client'> Crear nuevo cliente </option>
+                </select>
+                {!! $errors->first('id_client', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            </form>
         </div>
 
         <!-- Campos para detalles del cliente -->
