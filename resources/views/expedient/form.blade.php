@@ -129,6 +129,15 @@
     </div>
 </div>
 
+
+<!--Stilos que ocuparemos aqui-->
+
+<style>
+    .opaque{
+        opacity: 0.2;
+        pointer-events: none; 
+    }
+</style>
 <!--//Script para bloquear los campos si es que ya existe un cliente--> 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -139,10 +148,12 @@
             if(clientSelect.value === 'new_client'){
                 fields.forEach(function(field){
                     document.getElementById(field).removeAttribute('readonly');
+                    document.getElementById(field).classList.remove('opaque');
                 });
             } else {
                 fields.forEach(function(field) {
                     document.getElementById(field).setAttribute('readonly', 'readonly');
+                    document.getElementById(field).classList.add('opaque');
                     document.getElementById(field).value = '';
                 });
             }
@@ -150,6 +161,7 @@
 
         // Asegúrate de adjuntar el evento onchange al seleccionar el elemento, ya que es posible que el elemento no esté cargado antes.
         document.getElementById('id_client').onchange = toggleClientFields;
+        toggleClientFields();
     });
 </script>
 
