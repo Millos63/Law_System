@@ -55,7 +55,7 @@ class Expedient extends Model
      */
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class, 'id_client', 'id');
     }
     
     /**

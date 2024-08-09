@@ -5,6 +5,8 @@
 @endsection
 
 @section('content')
+
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -36,7 +38,7 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Expedient Number</th>
+									<th class="expedient_number" >Expedient Number</th>
 									<th >Expedient Date</th>
 									<th >Id Client</th>
 									<th >Authority</th>
@@ -61,7 +63,7 @@
                                             
 										<td >{{ $expedient->expedient_number }}</td>
 										<td >{{ $expedient->expedient_date }}</td>
-										<td >{{ $expedient->id_client }}</td>
+										<td >{{ $expedient->client->first_name }}</td>
 										<td >{{ $expedient->authority }}</td>
 										<td >{{ $expedient->id_judged }}</td>
 										<td >{{ $expedient->id_judment }}</td>
