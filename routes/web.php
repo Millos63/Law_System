@@ -26,7 +26,11 @@ Route::resource('pieces-files', App\Http\Controllers\PiecesFileController::class
 //Ruta para mostrar la información del cliente en el create al seleccionar un cliente ya creado
 Route::get('/clients/{clientId}', [ClientController::class, 'show'])->name('clients.show');
 
+//Para pasarle a mi index el id_expedient
+Route::get('expedients/{id_expedient}/promotions-accords', [App\Http\Controllers\PromotionsAccordController::class, 'index'])->name('promotions-accords.index');
 
+
+Route::get('expedients/{id_expedient}/promotions-accords/create', [App\Http\Controllers\PromotionsAccordController::class, 'create'])->name('promotions-accords.create');
 
 //Formulario donde meteremos todo
 Route::resource('expedients-all', App\Http\Controllers\ExpedientAllController::class)->middleware('auth');

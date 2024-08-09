@@ -14,7 +14,7 @@
                         <span class="card-title">{{ __('Create') }} Promotions Accord</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('promotions-accords.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('promotions-accords.store', ['id_expedient' => $id_expedient]) }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
                             @include('promotions-accord.form')

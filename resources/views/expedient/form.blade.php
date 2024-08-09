@@ -1,9 +1,11 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
         
-<!--FORMULARIO PARA CLIENTES-->
-
-        <div class="form-group mb-2 mb20">
+        <!--FORMULARIO PARA CLIENTES-->
+        <div>
+            
+        </div>
+        <div class="form-group mb-2 mb20 ">
             <label for="id_client" class="form-label">{{ __('id_client') }}</label>
             <select name="id_client" class="form-control @error('id_client') is-invalid @enderror"  id="id_client" placeholder="Id Client" onchange="toggleClientFields()">
                 @foreach($clients as $client)
@@ -23,6 +25,7 @@
             <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name', $client?->first_name) }}" id="first_name" placeholder="First Name" readonly>
             {!! $errors->first('first_name', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
         <div class="form-group mb-2 mb20">
             <label for="last_name" class="form-label">{{ __('Last Name') }}</label>
             <input type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name', $client?->last_name) }}" id="last_name" placeholder="Last Name" readonly>
@@ -48,10 +51,8 @@
             <input type="text" name="age" class="form-control @error('age') is-invalid @enderror" value="{{ old('age', $client?->age) }}" id="age" placeholder="Age" readonly>
             {!! $errors->first('age', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-    
-        
-        
-<!--FORMULARIO PARA EXPEDIENTE-->
+
+    <!--FORMULARIO PARA EXPEDIENTE-->
     
     <div class="form-group mb-2 mb20">
             <label for="expedient_number" class="form-label">{{ __('Expedient Number') }}</label>
@@ -63,9 +64,6 @@
             <input type="text" name="expedient_date" class="form-control @error('expedient_date') is-invalid @enderror" value="{{ old('expedient_date', $expedient?->expedient_date) }}" id="expedient_date" placeholder="Expedient Date">
             {!! $errors->first('expedient_date', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-       
-        
-
 
         <div class="form-group mb-2 mb20">
             <label for="authority" class="form-label">{{ __('Authority') }}</label>
@@ -123,10 +121,16 @@
             {!! $errors->first('protection_authority', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
+
+
+        <!--BOTON QUE ME LLEVE A PROMOCIONES Y ACUERDOS ESTE PONERLO EN EL FORMULARIO DE EDIT, YA QUE AQUI NO NOS SIRVE.-->
+        <div class="col-md-12 mt20 mt-2">
+            <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+            
+        </div>
+    
     </div>
-    <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
-    </div>
+
 </div>
 
 

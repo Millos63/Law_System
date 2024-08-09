@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\PromotionsAccord;
+//Modelo para poder trabajar con los expedientes
+use App\Models\Expedient;
+
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\PromotionsAccordRequest;
@@ -14,22 +18,27 @@ class PromotionsAccordController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request, $id_expedient): View
     {
-        $promotionsAccords = PromotionsAccord::paginate();
-
-        return view('promotions-accord.index', compact('promotionsAccords'))
+        $promotionsAccords = PromotionsAccord::where('id_expedient', $id_expedient)->paginate();
+    
+        return view('promotions-accord.index', compact('promotionsAccords', 'id_expedient'))
             ->with('i', ($request->input('page', 1) - 1) * $promotionsAccords->perPage());
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create($id_expedient): View
     {
+        $expedient = Expedient::find($id_expedient);
+       
         $promotionsAccord = new PromotionsAccord();
 
-        return view('promotions-accord.create', compact('promotionsAccord'));
+        //Para obtener todas las promociones que tiene cierto expediente dado.
+        $promotionsAccords = PromotionsAccord::where('id_expedient', $id_expedient)->get();
+
+        return view('promotions-accord.create', compact('promotionsAccord', 'expedient','promotionsAccords','id_expedient'));
     }
 
     /**
@@ -37,9 +46,10 @@ class PromotionsAccordController extends Controller
      */
     public function store(PromotionsAccordRequest $request): RedirectResponse
     {
-        PromotionsAccord::create($request->validated());
+        $promotionsAccord = PromotionsAccord::create($request->validated());
+        $id_expedient = $promotionsAccord->id_expedient; // Asumiendo que 'expedient_id' es un campo en PromotionsAccord
 
-        return Redirect::route('promotions-accords.index')
+        return Redirect::route('promotions-accords.index', ['id_expedient' => $id_expedient])
             ->with('success', 'PromotionsAccord created successfully.');
     }
 
@@ -60,7 +70,8 @@ class PromotionsAccordController extends Controller
     {
         $promotionsAccord = PromotionsAccord::find($id);
 
-        return view('promotions-accord.edit', compact('promotionsAccord'));
+        $id_expedient = $promotionsAccord ->id_expedient;
+        return view('promotions-accord.edit', compact('promotionsAccord', 'id_expedient'));
     }
 
     /**
@@ -76,9 +87,16 @@ class PromotionsAccordController extends Controller
 
     public function destroy($id): RedirectResponse
     {
-        PromotionsAccord::find($id)->delete();
+        $promotionsAccord = PromotionsAccord::find($id);
+        if (!$promotionsAccord) {
+            return Redirect::back()->withErrors(['error' => 'Promotion Accord not found.']);
+        }
 
-        return Redirect::route('promotions-accords.index')
-            ->with('success', 'PromotionsAccord deleted successfully');
+        $promotionsAccord->delete();
+
+        $id_expedient = $promotionsAccord->id_expedient; // Asumiendo que 'expedient_id' es un campo en PromotionsAccord
+
+        return Redirect::route('promotions-accords.index', ['id_expedient' => $id_expedient])
+            ->with('success', 'PromotionsAccord deleted successfully.');
     }
 }

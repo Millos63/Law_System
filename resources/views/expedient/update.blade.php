@@ -119,6 +119,7 @@
     </div>
     <div class="col-md-12 mt20 mt-2">
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <a href="{{ route('promotions-accords.create', ['id_expedient' => $expedient->id]) }}" class="btn btn-secondary">{{ __('Promociones y acuerdos') }}</a>
     </div>
 </div>
 

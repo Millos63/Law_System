@@ -37,8 +37,13 @@ class ExpedientController extends Controller
 
         //Para poder mostrar la información del cliente seleccionado en los inputs al seleccionar un cliente en el expediente
         $expedient = new Expedient();
+        //Para crear un nuevo cliente
         $client = new Client();
-        return view('expedient.create', compact('expedient', 'client', 'clients'));
+        //Coleccion vacia para crear un nuevo expediente.
+
+        $promotionsAccords = collect();
+
+        return view('expedient.create', compact('expedient', 'client', 'clients', 'promotionsAccords'));
     }
 
     /**
