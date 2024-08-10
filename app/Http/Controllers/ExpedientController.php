@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Expedient;
 use App\Models\Client;
+use App\Models\Judged;
+use App\Models\Matter;
+
 
 
 use Illuminate\Http\RedirectResponse;
@@ -31,9 +34,11 @@ class ExpedientController extends Controller
      */
     public function create(): View
     {
-        //Para acceder a todos nuestros clientes
-
+        //Para acceder a todos nuestros clientes, Juzgados, etc.
         $clients = Client::all();
+        $judgeds = Judged::all();
+        $matter = Matter::all();
+
 
         //Para poder mostrar la información del cliente seleccionado en los inputs al seleccionar un cliente en el expediente
         $expedient = new Expedient();
@@ -43,7 +48,7 @@ class ExpedientController extends Controller
 
         $promotionsAccords = collect();
 
-        return view('expedient.create', compact('expedient', 'client', 'clients', 'promotionsAccords'));
+        return view('expedient.create', compact('expedient', 'client', 'clients', 'promotionsAccords','judgeds'));
     }
 
     /**

@@ -53,6 +53,9 @@
                                 <a class="nav-link" href="{{ route('judgeds.index') }}">{{__('Juzgados')}}</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('matters.index') }}">{{__('Materias')}}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('judments.index') }}">{{__('Juicios')}}</a>
                             </li>
                             <li class="nav-item">

@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property $id
  * @property $judged_number
- * @property $matter
+ * @property $id_matter
  * @property $created_at
  * @property $updated_at
  *
+ * @property Matter $matter
  * @property Expedient[] $expedients
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -27,9 +28,17 @@ class Judged extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['judged_number', 'matter'];
+    protected $fillable = ['judged_number', 'id_matter'];
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function matter()
+    {
+        return $this->belongsTo(\App\Models\Matter::class, 'id_matter', 'id');
+    }
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

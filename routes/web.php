@@ -22,6 +22,7 @@ Route::resource('expedient-files', App\Http\Controllers\ExpedientFileController:
 Route::resource('pieces', App\Http\Controllers\PieceController::class)->middleware('auth');
 Route::resource('pieces-promotions-accords', App\Http\Controllers\PiecesPromotionsAccordController::class)->middleware('auth');
 Route::resource('pieces-files', App\Http\Controllers\PiecesFileController::class)->middleware('auth');
+Route::resource('matters', App\Http\Controllers\MatterController::class)->middleware('auth');
 
 //Ruta para mostrar la información del cliente en el create al seleccionar un cliente ya creado
 Route::get('/clients/{clientId}', [ClientController::class, 'show'])->name('clients.show');

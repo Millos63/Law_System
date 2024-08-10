@@ -7,9 +7,9 @@
             {!! $errors->first('judged_number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="matter" class="form-label">{{ __('Matter') }}</label>
-            <input type="text" name="matter" class="form-control @error('matter') is-invalid @enderror" value="{{ old('matter', $judged?->matter) }}" id="matter" placeholder="Matter">
-            {!! $errors->first('matter', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <label for="id_matter" class="form-label">{{ __('Id Matter') }}</label>
+            <input type="text" name="id_matter" class="form-control @error('id_matter') is-invalid @enderror" value="{{ old('id_matter', $judged?->id_matter) }}" id="id_matter" placeholder="Id Matter">
+            {!! $errors->first('id_matter', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
     </div>

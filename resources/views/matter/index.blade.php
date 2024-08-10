@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Judgeds
+    Matters
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Judgeds') }}
+                                {{ __('Matters') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('judgeds.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('matters.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
                               </div>
@@ -36,24 +36,22 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Judged Number</th>
-									<th >Id Matter</th>
+									<th >Matter</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($judgeds as $judged)
+                                    @foreach ($matters as $matter)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-										<td >{{ $judged->judged_number }}</td>
-										<td >{{ $judged->id_matter }}</td>
+										<td >{{ $matter->matter }}</td>
 
                                             <td>
-                                                <form action="{{ route('judgeds.destroy', $judged->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('judgeds.show', $judged->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('judgeds.edit', $judged->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('matters.destroy', $matter->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('matters.show', $matter->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('matters.edit', $matter->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -66,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $judgeds->withQueryString()->links() !!}
+                {!! $matters->withQueryString()->links() !!}
             </div>
         </div>
     </div>

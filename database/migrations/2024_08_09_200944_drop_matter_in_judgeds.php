@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('matters', function (Blueprint $table) {
-            $table->engine="InnoDB";
-            $table->bigIncrements('id');
-            $table->string('matter');
-            $table->timestamps();
+        Schema::table('judgeds', function (Blueprint $table) {
+            //
+            $table->dropColumn('matter');
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('judgeds', function (Blueprint $table) {
+            //
+        });
     }
 };
