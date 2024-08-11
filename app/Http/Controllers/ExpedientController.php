@@ -56,11 +56,9 @@ class ExpedientController extends Controller
      */
     public function store(ExpedientRequest $request): RedirectResponse
     {
-
-
         $validatedData = $request -> validated();
 
-        DB::transaction(function () use ($validatedData) {
+        $expedient = DB::transaction(function () use ($validatedData) {
             $client = null;
 
             if ($validatedData['id_client'] === 'new_client') {
@@ -100,7 +98,7 @@ class ExpedientController extends Controller
             ]);
             
         });
-        
+
         return Redirect::route('expedients.index')
             ->with('success', 'Expedient created successfully.');
     }
