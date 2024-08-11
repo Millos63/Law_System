@@ -46,7 +46,7 @@
                                     <th >Autoridad</th>
                                     <th >Link</th>
 
-                                    <th >Expedient Date</th>
+                                    <th >Fecha</th>
 								
                                         <th></th>
                                     </tr>
@@ -59,10 +59,17 @@
 										<td >{{ $expedient->expedient_number }}</td>
                                         <td >{{ $expedient->client->first_name }} {{ $expedient->client->last_name }}</td>
 										<td >{{ $expedient->counter_party }}</td>
-										<td >{{ $expedient->id_judment }}</td>
-										<td >{{ $expedient->id_judged }}</td>
+										<td >{{ $expedient->judment->judment }}</td>
+										<td >{{ $expedient->judged->judged_number}}</td>
 										<td >{{ $expedient->authority }}</td>
-										<td >{{ $expedient->expedient_link }}</td>
+
+										<td>
+                                            <a href="{{ $expedient->expedient_link }}">
+                                                {{Str::limit($expedient->expedient_link, 35)}}
+                                            </a>
+                                            
+                                        </td>
+
 
                                         <td >{{ $expedient->expedient_date }}</td>
 

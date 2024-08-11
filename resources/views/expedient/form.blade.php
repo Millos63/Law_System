@@ -122,7 +122,7 @@
                         <h5>Información de toca</h5>
                         <div class = "col-md-2">
                             <div class="form-group mb-2">
-                                <label for="touch_number" class="form-label">{{ __('Numero') }}</label>
+                                <label for="touch_number" class="form-label">{{ __('No.') }}</label>
                                 <input type="text" name="touch_number" class="form-control @error('touch_number') is-invalid @enderror" value="{{ old('touch_number', $expedient?->touch_number) }}" id="touch_number" placeholder="No.">
                                 {!! $errors->first('touch_number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                             </div>
@@ -136,7 +136,7 @@
                         </div>
                         <div class = "col-md-4">
                             <div class="form-group mb-2">
-                                <label for="room_number" class="form-label">{{ __('Numero de sala') }}</label>
+                                <label for="room_number" class="form-label">{{ __('No.Sala') }}</label>
                                 <input type="text" name="room_number" class="form-control @error('room_number') is-invalid @enderror" value="{{ old('room_number', $expedient?->room_number) }}" id="room_number" placeholder="No.Sala">
                                 {!! $errors->first('room_number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                             </div>
@@ -201,7 +201,7 @@
         <!-- SECCIÓN DE PROMOCIONES Y ACUERDOS -->
         <div style="border-radius: 2px; border: 1px solid #ddd; padding: 10px;">
             <h5>{{ __('Promociones y Acuerdos') }}</h5>
-            <button class="btn btn-success">{{ __('Ver promociones y acuerdos') }}</button>
+            <button class="btn btn-success">{{ __('Promociones y acuerdos') }}</button>
         </div>
     </div>
 
