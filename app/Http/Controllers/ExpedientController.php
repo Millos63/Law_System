@@ -60,7 +60,7 @@ class ExpedientController extends Controller
     {
         $validatedData = $request -> validated();
 
-        $expedient = DB::transaction(function () use ($validatedData) {
+        $expedient = DB::transaction(function () use ($validatedData, $request) {
             $client = null;
 
             if ($validatedData['id_client'] === 'new_client') {
@@ -99,19 +99,40 @@ class ExpedientController extends Controller
 
             ]);
 
-            //Guardar las promociones y acuerdos relacionados
-            foreach ($request->input('promotionsAccords', [])as $promotionData){
-                $expedient->promotionAccords()->create([
-                    'promotion_file' => isset($promotionData['promotion_file']) ? $promotionData['promotion_file']->store('promotions','public') : null,
-                    'promotion_date' => $promotionData['promotion_date'],
-                    'promotion_description' => $promotionData['promotion_description'],
-                    'accord_file' => isset($promotionData['accord_file']) ? $promotionData['accord_file']->store('accords', 'public') : null,
-                    'accord_date' => $promotionData['accord_date'],
-                    'accord_description' => $promotionData['accord_description'],
-                ]);
+            // Guardar las promociones y acuerdos relacionados
+        $promotions = $request->input('promotionsAccord', []);
+
+        foreach ($promotions as $promotionData) {
+            $promotionFile = null;
+            $accordFile = null;
+
+            // Manejo del archivo de promoción
+            if (isset($promotionData['promotion_file']) && $promotionData['promotion_file']->isValid()) {
+                $file = $promotionData['promotion_file'];
+                $originalName = $file->getClientOriginalName();
+                $filename = time() . '_' . $originalName;
+                $promotionFile = $file->storeAs('public/promotions', $filename);
             }
-            
-        });
+
+            // Manejo del archivo de acuerdo
+            if (isset($promotionData['accord_file']) && $promotionData['accord_file']->isValid()) {
+                $file = $promotionData['accord_file'];
+                $originalName = $file->getClientOriginalName();
+                $filename = time() . '_' . $originalName;
+                $accordFile = $file->storeAs('public/accords', $filename);
+            }
+
+            // Crear la promoción y acuerdo asociado al expediente
+            $expedient->promotionsAccords()->create([
+                'promotion_file' => $promotionFile,
+                'promotion_date' => $promotionData['promotion_date'],
+                'promotion_description' => $promotionData['promotion_description'],
+                'accord_file' => $accordFile,
+                'accord_date' => $promotionData['accord_date'],
+                'accord_description' => $promotionData['accord_description'],
+            ]);
+        }
+    });
 
         return Redirect::route('expedients.index')
             ->with('success', 'Expedient created successfully.');

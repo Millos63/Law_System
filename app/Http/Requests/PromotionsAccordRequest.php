@@ -23,12 +23,12 @@ class PromotionsAccordRequest extends FormRequest
     {
         return [
 			'id_expedient' => 'required',
-			'promotion_file' => 'string',
+			'promotion_file' => 'nullable|file', //Max 10 mb, ajusta según sea necesario
             'promotion_date' => 'date|nullable',
-			'promotion_description' => 'string',
-			'accord_file' => 'string',
+			'promotion_description' => 'string|nullable',
+			'accord_file' => 'nullable|file',
             'accord_date' => 'date|nullable',
-			'accord_description' => 'string',
+			'accord_description' => 'string|nullable',
         ];
     }
 }
