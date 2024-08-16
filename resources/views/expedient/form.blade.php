@@ -201,7 +201,43 @@
         <!-- SECCIÓN DE PROMOCIONES Y ACUERDOS -->
         <div style="border-radius: 2px; border: 1px solid #ddd; padding: 10px;">
             <h5>{{ __('Promociones y Acuerdos') }}</h5>
-            <button class="btn btn-success">{{ __('Promociones y acuerdos') }}</button>
+            <div id="promotions">
+                <div class="promotion">
+                    <div class="row">
+                        <!--Division para promociones-->
+                        <div clas="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="promotion_file_0" class="form-label">{{ __('Archivo de Promoción:') }}</label>
+                                <input type="file" name="promotions[0][promotion_file]" class="form-control" id="promotion_file_0">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="promotion_date_0" class="form-label">{{ __('Fecha de Promoción:') }}</label>
+                                <input type="date" name="promotions[0][promotion_date]" class="form-control" id="promotion_date_0">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="promotion_description_0" class="form-label">{{ __('Descripción de la Promoción:') }}</label>
+                                <input type="text" name="promotions[0][promotion_description]" class="form-control" id="promotion_description_0" placeholder="Descripción">
+                            </div>
+                        </div>
+                        <!--Division para Acuerdos-->
+                        <div clas="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="accord_file_0" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
+                                <input type="file" name="promotions[0][accord_file]" class="form-control" id="accord_file_0">
+                             </div>
+                            <div class="form-group mb-2">
+                                <label for="accord_date_0" class="form-label">{{ __('Fecha de Acuerdo:') }}</label>
+                                <input type="date" name="promotions[0][accord_date]" class="form-control" id="accord_date_0">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="accord_description_0" class="form-label">{{ __('Descripción del Acuerdo:') }}</label>
+                                <input type="text" name="promotions[0][accord_description]" class="form-control" id="accord_description_0" placeholder="Descripción">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="addPromotion">{{ __('Agregar Promoción') }}</button>
         </div>
     </div>
 
@@ -226,8 +262,9 @@
     }
 </style>
 
-<!-- Script para bloquear los campos si ya existe un cliente -->
 <script>
+    // Script para bloquear los campos si ya existe un cliente 
+
     document.addEventListener('DOMContentLoaded', function() {
         function toggleClientFields() {
             var clientSelect = document.getElementById('id_client');
@@ -249,4 +286,41 @@
         document.getElementById('id_client').onchange = toggleClientFields;
         toggleClientFields();
     });
+
+    //Script para agregar las promocoines que sean necesarias.
+
+    document.getElementById('addPromotion').addEventListener('click', function() {
+        let promotionsDiv = document.getElementById('promotions');
+        let index = promotionsDiv.children.length;
+        let newPromotionDiv = document.createElement('div');
+        newPromotionDiv.classList.add('promotion');
+        newPromotionDiv.innerHTML = `
+            <div class="form-group mb-2">
+                <label for="promotion_file_${index}" class="form-label">{{ __('Archivo de Promoción:') }}</label>
+                <input type="file" name="promotions[${index}][promotion_file]" class="form-control" id="promotion_file_${index}">
+            </div>
+            <div class="form-group mb-2">
+                <label for="promotion_date_${index}" class="form-label">{{ __('Fecha de Promoción:') }}</label>
+                <input type="date" name="promotions[${index}][promotion_date]" class="form-control" id="promotion_date_${index}">
+            </div>
+            <div class="form-group mb-2">
+                <label for="promotion_description_${index}" class="form-label">{{ __('Descripción de la Promoción:') }}</label>
+                <input type="text" name="promotions[${index}][promotion_description]" class="form-control" id="promotion_description_${index}" placeholder="Descripción">
+            </div>
+            <div class="form-group mb-2">
+                <label for="accord_file_${index}" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
+                <input type="file" name="promotions[${index}][accord_file]" class="form-control" id="accord_file_${index}">
+            </div>
+            <div class="form-group mb-2">
+                <label for="accord_date_${index}" class="form-label">{{ __('Fecha de Acuerdo:') }}</label>
+                <input type="date" name="promotions[${index}][accord_date]" class="form-control" id="accord_date_${index}">
+            </div>
+            <div class="form-group mb-2">
+                <label for="accord_description_${index}" class="form-label">{{ __('Descripción del Acuerdo:') }}</label>
+                <input type="text" name="promotions[${index}][accord_description]" class="form-control" id="accord_description_${index}" placeholder="Descripción">
+            </div>
+        `;
+        promotionsDiv.appendChild(newPromotionDiv);
+    });
+
 </script>

@@ -7,6 +7,8 @@ use App\Models\Expedient;
 use App\Models\Client;
 use App\Models\Judged;
 use App\Models\Matter;
+use App\Models\PromotionsAccord;
+
 
 
 
@@ -96,6 +98,18 @@ class ExpedientController extends Controller
                 'protection_authority' => $validatedData['protection_authority'],  
 
             ]);
+
+            //Guardar las promociones y acuerdos relacionados
+            foreach ($request->input('promotionsAccords', [])as $promotionData){
+                $expedient->promotionAccords()->create([
+                    'promotion_file' => isset($promotionData['promotion_file']) ? $promotionData['promotion_file']->store('promotions','public') : null,
+                    'promotion_date' => $promotionData['promotion_date'],
+                    'promotion_description' => $promotionData['promotion_description'],
+                    'accord_file' => isset($promotionData['accord_file']) ? $promotionData['accord_file']->store('accords', 'public') : null,
+                    'accord_date' => $promotionData['accord_date'],
+                    'accord_description' => $promotionData['accord_description'],
+                ]);
+            }
             
         });
 

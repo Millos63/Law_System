@@ -70,7 +70,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('pieces-promotions-accords.index') }}">{{__('PromocionesAcuerdosPieza')}}</a>
                             </li>
-                            
+
 
                             
                             
