@@ -53,6 +53,12 @@ class ExpedientRequest extends FormRequest
 			'phone_number' => 'nullable|string|required_if:id_client,new|',
 			'age' => 'nullable|string|required_if:id_client,new|',
 
+            //Request para nuestros datos de Promotions Accords
+            'promotion_date' => 'nullable|date',
+            'promotion_description' => 'nullable|string',
+            'accord_date' => 'nullable|date',
+            'accord_description' => 'nullable|string',
+
         ];
     }
 }

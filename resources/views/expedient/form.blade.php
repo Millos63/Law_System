@@ -208,39 +208,39 @@
                         <div clas="col-md-6">
                             <div class="form-group mb-2">
                                 <label for="promotion_file" class="form-label">{{ __('Archivo de Promoción:') }}</label>
-                                <input type="file" name="promotion_file" class="form-control @error('promotion_file') is-invalid @enderror" value="{{ old('promotion_file', $promotion_accord?->promotion_file) }}" id="promotion_file" placeholder="PromotionFile">
-                                {!! $errors->first('protection_authority', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                <input type="file" name="promotion_file" class="form-control @error('promotion_file') is-invalid @enderror" value="{{ old('promotion_file') }}" id="promotion_file" placeholder="PromotionFile">
+                                {!! $errors->first('promotion_file', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
 
                             </div>
                             <div class="form-group mb-2">
                                 <label for="promotion_date" class="form-label">{{ __('Fecha de Promoción:') }}</label>
-                                <input type="date" name="promotion_date" class="form-control @error('promotion_date') is-invalid @enderror"  value="{{ old('promotion_date', $promotion_accord?->promotion_date) }}"id="promotion_date" placeholder="Promotiondate">
-                                {!! $errors->first('protection_authority', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                <input type="date" name="promotion_date" class="form-control @error('promotion_date') is-invalid @enderror"  value="{{ old('promotion_date') }}"id="promotion_date" placeholder="Promotiondate">
+                                {!! $errors->first('promotion_date', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                             </div>
 
                             <div class="form-group mb-2">
                                 <label for="promotion_description" class="form-label">{{ __('Descripción de la Promoción:') }}</label>
-                                <input type="text" name="promotion_description" class="form-control" id="promotion_description" class="form-control @error('promotion_description') is-invalid @enderror" value="{{ old('promotion_description', $promotion_accord?->promotion_description) }}"id="promotion_description" placeholder="PromotionDescription">
-                                {!! $errors->first('protection_authority', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                <input type="text" name="promotion_description" class="form-control" id="promotion_description" class="form-control @error('promotion_description') is-invalid @enderror" value="{{ old('promotion_description') }}"id="promotion_description" placeholder="PromotionDescription">
+                                {!! $errors->first('promotion_description', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
 
                         </div>
                         <!--Division para Acuerdos-->
                         <div clas="col-md-6">
                             <div class="form-group mb-2">
                                 <label for="accord_file" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
-                                <input type="file" name="accord_file" class="form-control @error('accord_file') is-invalid @enderror" value="{{ old('accord_file', $promotion_accord ?->accord_file) }}" id="accord_file" placeholder="AccordFile">
-                                {!! $errors->first('protection_authority', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                <input type="file" name="accord_file" class="form-control @error('accord_file') is-invalid @enderror" value="{{ old('accord_file') }}" id="accord_file" placeholder="AccordFile">
+                                {!! $errors->first('accord_file', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
 
                              </div>
                             <div class="form-group mb-2">
                                 <label for="accord_date" class="form-label">{{ __('Fecha de Acuerdo:') }}</label>
-                                <input type="date" name="accord_date" class="form-control @error('accord_date') is-invalid @enderror" value="{{ old('accord_date', $promotion_accord ?->accord_date) }}" id="accord_date" placheholder="AccordDate">
-                                {!! $errors->first('protection_authority', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                <input type="date" name="accord_date" class="form-control @error('accord_date') is-invalid @enderror" value="{{ old('accord_date') }}" id="accord_date" placheholder="AccordDate">
+                                {!! $errors->first('accord_date', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                             </div>
                             <div class="form-group mb-2">
                                 <label for="accord_description" class="form-label">{{ __('Descripción del Acuerdo:') }}</label>
-                                <input type="text" name="accord_description" class="form-control @error('accord_description') is-invalid @enderror"  value="{{ old('accord_description', $promotion_accord ?->accord_description) }}" id="accord_description" placeholder="Descripción">
-                                {!! $errors->first('protection_authority', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                <input type="text" name="accord_description" class="form-control @error('accord_description') is-invalid @enderror"  value="{{ old('accord_description') }}" id="accord_description" placeholder="Descripción">
+                                {!! $errors->first('accord_description', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
 
                             </div>
                         </div>
