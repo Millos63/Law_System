@@ -103,16 +103,16 @@ class ExpedientController extends Controller
             // Guardar las promociones y acuerdos relacionados
         
             //Variable para que el nombre de la carpeta donde se guardaran sera el numero de expediente
-            $folderName = $expedient->expedient_number;
+            $folderName = 'expedientes/'.$expedient->expedient_number;
             $promotionFile = null;
             $accordFile = null;
 
             if ($request->hasFile('promotion_file') && $request->file('promotion_file')->isValid()) {
-                $promotionFile = $request->file('promotion_file')->storeAs("public/{$folderName}/promotions", time() . '_' . $request->file('promotion_file')->getClientOriginalName());
+                $promotionFile = $request->file('promotion_file')->storeAs('public/' . $folderName . '/Promotions', time() . '_' . $request->file('promotion_file')->getClientOriginalName());            
             }
 
             if ($request->hasFile('accord_file') && $request->file('accord_file')->isValid()) {
-                $accordFile = $request->file('accord_file')->storeAs("public/{$folderName}/accords", time() . '_' . $request->file('accord_file')->getClientOriginalName());
+                $accordFile = $request->file('accord_file')->storeAs('public/' . $folderName . '/Accords', time() . '_' . $request->file('accord_file')->getClientOriginalName());
             }
 
             $expedient->promotionsAccords()->create([
