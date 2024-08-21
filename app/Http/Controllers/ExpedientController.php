@@ -11,6 +11,7 @@ use App\Models\PromotionsAccord;
 
 
 
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -104,29 +105,39 @@ class ExpedientController extends Controller
         
             //Variable para que el nombre de la carpeta donde se guardaran sera el numero de expediente
             $folderName = 'expedientes/'.$expedient->expedient_number;
-            $promotionFile = null;
-            $accordFile = null;
 
-            if ($request->hasFile('promotion_file') && $request->file('promotion_file')->isValid()) {
-                $promotionFile = $request->file('promotion_file')->storeAs('public/' . $folderName . '/Promotions', time() . '_' . $request->file('promotion_file')->getClientOriginalName());            
+
+            // Verifica que las carpetas se crean correctamente
+            Storage::makeDirectory("public/$folderName/Promotions");
+            Storage::makeDirectory("public/$folderName/Accords");
+
+            //foreach para recorrer la lista de promociones y acuerdos que se iran creando.
+            foreach($request->input('promotions', [])as $index => $promotionData){
+                $promotionFile = null;
+                $accordFile = null;
+
+                if ($request->hasFile('promotion_file')&& $request->file("promotions.$index.promotion_file")->isValid()) {
+                    $promotionFile = $request->file("promotions.$index.promotion_file")->storeAs('public/' . $folderName . '/Promotions', time() . '_'  . $request->file("promotions.$index.promotion_file")->getClientOriginalName());
+                }
+    
+                if ($request->hasFile('accord_file') && $request->file("promotions.$index.accord_file")->isValid()) {
+                    $accordFile = $request->file("promotions.$index.accord_file")->storeAs('public/' . $folderName . '/Accords', time() . '_'. $request->file("promotions.$index.accord_file")->getClientOriginalName());
+                }
+    
+                $expedient->promotionsAccords()->create([
+                    'id_expedient' => $expedient-> id,
+                    'promotion_file' => $promotionFile,
+                    'promotion_date' => $promotionData['promotion_date'],
+                    'promotion_description' => $promotionData['promotion_description'],
+                    'accord_file' => $accordFile,
+                    'accord_date' => $promotionData['accord_date'],
+                    'accord_description' => $promotionData['accord_description'],
+                ]);
             }
-
-            if ($request->hasFile('accord_file') && $request->file('accord_file')->isValid()) {
-                $accordFile = $request->file('accord_file')->storeAs('public/' . $folderName . '/Accords', time() . '_' . $request->file('accord_file')->getClientOriginalName());
-            }
-
-            $expedient->promotionsAccords()->create([
-                'id_expedient' => $expedient-> id,
-                'promotion_file' => $promotionFile,
-                'promotion_date' => $validatedData['promotion_date'],
-                'promotion_description' => $validatedData['promotion_description'],
-                'accord_file' => $accordFile,
-                'accord_date' => $validatedData['accord_date'],
-                'accord_description' => $validatedData['accord_description'],
-            ]);
 
             return $expedient;
 
+            
             
         });
 

@@ -205,49 +205,38 @@
                 <div class="promotion">
                     <div class="row">
                         <!--Division para promociones-->
-                        <div clas="col-md-6">
+                        <div class="col-md-6">
                             <div class="form-group mb-2">
-                                <label for="promotion_file" class="form-label">{{ __('Archivo de Promoción:') }}</label>
-                                <input type="file" name="promotion_file" class="form-control @error('promotion_file') is-invalid @enderror" value="{{ old('promotion_file') }}" id="promotion_file" placeholder="PromotionFile">
-                                {!! $errors->first('promotion_file', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-
+                                <label for="promotion_file_0" class="form-label">{{ __('Archivo de Promoción:') }}</label>
+                                <input type="file" name="promotions[0][promotion_file]" class="form-control" id="promotion_file_0">
                             </div>
                             <div class="form-group mb-2">
-                                <label for="promotion_date" class="form-label">{{ __('Fecha de Promoción:') }}</label>
-                                <input type="date" name="promotion_date" class="form-control @error('promotion_date') is-invalid @enderror"  value="{{ old('promotion_date') }}"id="promotion_date" placeholder="Promotiondate">
-                                {!! $errors->first('promotion_date', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                <label for="promotion_date_0" class="form-label">{{ __('Fecha de Promoción:') }}</label>
+                                <input type="date" name="promotions[0][promotion_date]" class="form-control" id="promotion_date_0">
                             </div>
-
                             <div class="form-group mb-2">
-                                <label for="promotion_description" class="form-label">{{ __('Descripción de la Promoción:') }}</label>
-                                <input type="text" name="promotion_description" class="form-control" id="promotion_description" class="form-control @error('promotion_description') is-invalid @enderror" value="{{ old('promotion_description') }}"id="promotion_description" placeholder="PromotionDescription">
-                                {!! $errors->first('promotion_description', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-
+                                <label for="promotion_description_0" class="form-label">{{ __('Descripción de la Promoción:') }}</label>
+                                <input type="text" name="promotions[0][promotion_description]" class="form-control" id="promotion_description_0" placeholder="Descripción">
+                            </div>
                         </div>
-                        <!--Division para Acuerdos-->
-                        <div clas="col-md-6">
+                        <div class="col-md-6">
                             <div class="form-group mb-2">
-                                <label for="accord_file" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
-                                <input type="file" name="accord_file" class="form-control @error('accord_file') is-invalid @enderror" value="{{ old('accord_file') }}" id="accord_file" placeholder="AccordFile">
-                                {!! $errors->first('accord_file', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-
-                             </div>
-                            <div class="form-group mb-2">
-                                <label for="accord_date" class="form-label">{{ __('Fecha de Acuerdo:') }}</label>
-                                <input type="date" name="accord_date" class="form-control @error('accord_date') is-invalid @enderror" value="{{ old('accord_date') }}" id="accord_date" placheholder="AccordDate">
-                                {!! $errors->first('accord_date', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                                <label for="accord_file_0" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
+                                <input type="file" name="promotions[0][accord_file]" class="form-control" id="accord_file_0">
                             </div>
                             <div class="form-group mb-2">
-                                <label for="accord_description" class="form-label">{{ __('Descripción del Acuerdo:') }}</label>
-                                <input type="text" name="accord_description" class="form-control @error('accord_description') is-invalid @enderror"  value="{{ old('accord_description') }}" id="accord_description" placeholder="Descripción">
-                                {!! $errors->first('accord_description', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-
+                                <label for="accord_date_0" class="form-label">{{ __('Fecha de Acuerdo:') }}</label>
+                                <input type="date" name="promotions[0][accord_date]" class="form-control" id="accord_date_0">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="accord_description_0" class="form-label">{{ __('Descripción del Acuerdo:') }}</label>
+                                <input type="text" name="promotions[0][accord_description]" class="form-control" id="accord_description_0" placeholder="Descripción">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--<button type="button" class="btn btn-secondary mt-2" id="addPromotion">{{ __('Agregar Promoción') }}</button>-->
+            <button type="button" class="btn btn-secondary mt-2" id="addPromotion">{{ __('Agregar Promoción') }}</button>
         </div>
     </div>
 
@@ -303,34 +292,40 @@
         let promotionsDiv = document.getElementById('promotions');
         let index = promotionsDiv.children.length;
         let newPromotionDiv = document.createElement('div');
-        newPromotionDiv.classList.add('promotion');
+        newPromotionDiv.classList.add('promotion', 'mb-4');
         newPromotionDiv.innerHTML = `
-            <div class="form-group mb-2">
-                <label for="promotion_file_${index}" class="form-label">{{ __('Archivo de Promoción:') }}</label>
-                <input type="file" name="promotions[${index}][promotion_file]" class="form-control" id="promotion_file_${index}">
+         <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-2">
+                    <label for="promotion_file_${index}" class="form-label">Archivo de Promoción:</label>
+                    <input type="file" name="promotions[${index}][promotion_file]" class="form-control" id="promotion_file_${index}">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="promotion_date_${index}" class="form-label">Fecha de Promoción:</label>
+                    <input type="date" name="promotions[${index}][promotion_date]" class="form-control" id="promotion_date_${index}">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="promotion_description_${index}" class="form-label">Descripción de la Promoción:</label>
+                    <input type="text" name="promotions[${index}][promotion_description]" class="form-control" id="promotion_description_${index}" placeholder="Descripción">
+                </div>
             </div>
-            <div class="form-group mb-2">
-                <label for="promotion_date_${index}" class="form-label">{{ __('Fecha de Promoción:') }}</label>
-                <input type="date" name="promotions[${index}][promotion_date]" class="form-control" id="promotion_date_${index}">
+            <div class="col-md-6">
+                <div class="form-group mb-2">
+                    <label for="accord_file_${index}" class="form-label">Archivo de Acuerdo:</label>
+                    <input type="file" name="promotions[${index}][accord_file]" class="form-control" id="accord_file_${index}">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="accord_date_${index}" class="form-label">Fecha de Acuerdo:</label>
+                    <input type="date" name="promotions[${index}][accord_date]" class="form-control" id="accord_date_${index}">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="accord_description_${index}" class="form-label">Descripción del Acuerdo:</label>
+                    <input type="text" name="promotions[${index}][accord_description]" class="form-control" id="accord_description_${index}" placeholder="Descripción">
+                </div>
             </div>
-            <div class="form-group mb-2">
-                <label for="promotion_description_${index}" class="form-label">{{ __('Descripción de la Promoción:') }}</label>
-                <input type="text" name="promotions[${index}][promotion_description]" class="form-control" id="promotion_description_${index}" placeholder="Descripción">
-            </div>
-            <div class="form-group mb-2">
-                <label for="accord_file_${index}" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
-                <input type="file" name="promotions[${index}][accord_file]" class="form-control" id="accord_file_${index}">
-            </div>
-            <div class="form-group mb-2">
-                <label for="accord_date_${index}" class="form-label">{{ __('Fecha de Acuerdo:') }}</label>
-                <input type="date" name="promotions[${index}][accord_date]" class="form-control" id="accord_date_${index}">
-            </div>
-            <div class="form-group mb-2">
-                <label for="accord_description_${index}" class="form-label">{{ __('Descripción del Acuerdo:') }}</label>
-                <input type="text" name="promotions[${index}][accord_description]" class="form-control" id="accord_description_${index}" placeholder="Descripción">
-            </div>
-        `;
-        promotionsDiv.appendChild(newPromotionDiv);
-    });
+        </div>
+    `;
+    promotionsDiv.appendChild(newPromotionDiv);
+});
 
 </script>
