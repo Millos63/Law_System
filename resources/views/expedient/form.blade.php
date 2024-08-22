@@ -192,7 +192,7 @@
 
     <div class="col-md-6">
         <!-- SECCIÓN DE PROMOCIONES Y ACUERDOS -->
-        <div class="promotion-container">
+        <div class="promotion_container">
             <h5>{{ __('Promociones y Acuerdos') }}</h5>
             <div id="promotions">
                 <div class="promotion">
@@ -212,6 +212,7 @@
                                 <input type="text" name="promotions[0][promotion_description]" class="form-control" id="promotion_description_0" placeholder="Descripción">
                             </div>
                         </div>
+                        <!--Sección de acuerdos--->
                         <div class="col-md-6">
                             <div class="form-group mb-2">
                                 <label for="accord_file_0" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
@@ -235,9 +236,28 @@
 
     <div class="col-md-6">
         <!-- SECCIÓN DE OTROS ARCHIVOS -->
-        <div style="border-radius: 2px; border: 1px solid #ddd; padding: 10px;">
+        <div class="files_container">
             <h5>{{ __('Otros Archivos') }}</h5>
-            <button class="btn btn-success">{{ __('Archivos') }}</button>
+            <div id="files">
+                <div id="file">
+                    <div class="col-md-6">
+                        <div class="form-group mb-2">
+                            <label for="file_0" class="form-label">{{ __('Archivo:') }}</label>
+                            <input type="file" name="files[0][file]" class="form-control" id="file_0">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="file_date_0" class="form-label">{{ __('Fecha:') }}</label>
+                            <input type="date" name="files[0][file_date]" class="form-control" id="file_date_0">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="description_0" class="form-label">{{ __('Descripción:') }}</label>
+                            <input type="text" name="files[0][description]" class="form-control" id="description_0">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="addFile">{{ __('Agregar Archivo') }}</button>
         </div>
     </div>
 
@@ -321,4 +341,29 @@
     promotionsDiv.appendChild(newPromotionDiv);
 });
 
+
+    document.getElementById('addFile').addEventListener('click', function(){
+        let filesDiv = document.getElementById('files');
+        let indexFile = filesDiv.children.lenght;
+        let newFileDiv = document.createElement('div');
+        newFileDiv.classList.add('file', 'mb-4');
+        newFileDiv.innerHTML = `
+        <div style="border-top: 1px solid black; padding-top: 10px">
+            <div class="form-group mb-4">
+                <label for="file_${indexFile}" class="form-label">{{ __('Archivo:') }}</label>
+                <input type="file" name="files[${indexFile}][file]" class="form-control" id="file_${indexFile}">
+            </div>
+            <div class="form-group mb-4">
+                <label for="file_date_${indexFile}" class="form-label">{{ __('Fecha:') }}</label>
+                <input type="date" name="files[${indexFile}][file_date]" class="form-control" id="file_date_${indexFile}">
+            </div>
+            <div class="form-group mb-4">
+                <label for="description_${indexFile}" class="form-label">{{ __('Descripción:') }}</label>
+                <input type="text" name="files[${indexFile}][description]" class="form-control" id="description_${indexFile}">
+            </div>
+        </div>
+        `;
+        filesDiv.appendChild(newFileDiv);
+
+    })
 </script>

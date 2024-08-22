@@ -8,7 +8,7 @@ use App\Models\Client;
 use App\Models\Judged;
 use App\Models\Matter;
 use App\Models\PromotionsAccord;
-
+use App\Models\ExpedientFile;
 
 
 use Illuminate\Support\Facades\Storage;
@@ -107,8 +107,8 @@ class ExpedientController extends Controller
 
 
             // Verifica que las carpetas se crean correctamente
-            Storage::makeDirectory("public/$folderName/Promotions");
-            Storage::makeDirectory("public/$folderName/Accords");
+            Storage::makeDirectory("public/$folderName/Promociones");
+            Storage::makeDirectory("public/$folderName/Acuerdos");
 
             //Para revisar como se estan enviando los datos desde el formulario
             //foreach para recorrer la lista de promociones y acuerdos que se iran creando.
@@ -118,18 +118,16 @@ class ExpedientController extends Controller
 
                 //dd($request->file("promotions.$index.promotion_file"));
                 if ($request->hasFile("promotions.$index.promotion_file") && $request->file("promotions.$index.promotion_file")->isValid()) {
-                    $promotionFile = $request->file("promotions.$index.promotion_file")->storeAs('public/' . $folderName . '/Promotions',time() . '_' . $request->file("promotions.$index.promotion_file")->getClientOriginalName());              
+                    $promotionFile = $request->file("promotions.$index.promotion_file")->storeAs('public/' . $folderName . '/Promociones',time() . '_' . $request->file("promotions.$index.promotion_file")->getClientOriginalName());              
                     //Para depuración
 
                 }
     
                 // Verificar si el archivo de acuerdo está presente y es válido
                 if ($request->hasFile("promotions.$index.accord_file") && $request->file("promotions.$index.accord_file")->isValid()) {
-                    $accordFile = $request->file("promotions.$index.accord_file")->storeAs('public/' . $folderName . '/Accords', time() . '_' . $request->file("promotions.$index.accord_file")->getClientOriginalName());      
+                    $accordFile = $request->file("promotions.$index.accord_file")->storeAs('public/' . $folderName . '/Acuerdos', time() . '_' . $request->file("promotions.$index.accord_file")->getClientOriginalName());      
 
                 }
-
-
 
                 $expedient->promotionsAccords()->create([
                     'id_expedient' => $expedient-> id,
@@ -143,6 +141,31 @@ class ExpedientController extends Controller
 
 
             }
+
+
+            //------Para guardar los archivos extras del expediente--------//'
+            // Verificar que las carpetas se crean correctamente
+            Storage::makeDirectory("public/$folderName/Archivos");
+
+            //foreach para recorrer la lista de archivos a guardar
+            foreach($request->input('files', [])as $index => $fileData){
+                $file = null;
+
+                if($request->hasFile("files.$index.file") && $request->file("files.$index.file")->isValid()){
+                    $file = $request->file("files.$index.file")->storeAs('public/'. $folderName . '/Archivos', time() . '_' . $request->file("files.$index.file")->getClientOriginalName());
+
+                }
+
+                $expedient->expedientFiles()->create([
+                    'id_expedient' => $expedient -> id,
+                    'file' => $file,
+                    'file_date' => $fileData['file_date'],
+                    'description' => $fileData['description'],
+
+                ]);
+            }
+
+
 
             return $expedient;
 

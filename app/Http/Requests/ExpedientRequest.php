@@ -59,6 +59,11 @@ class ExpedientRequest extends FormRequest
             'accord_date' => 'nullable|date',
             'accord_description' => 'nullable|string',
 
+            //Request para archivos 
+            'file' => 'nullable|file',
+            'file_date' => 'nullable|date',
+            'description' => 'nullable|string',
+
         ];
     }
 }
