@@ -142,18 +142,11 @@
                             </div>
                         </div>
                     </div>
-
-                    
-
                     <div class="form-group mb-2">
                         <label for="expedient_link" class="form-label">{{ __('Link de Expediente: ') }}</label>
                         <input type="text" name="expedient_link" class="form-control @error('expedient_link') is-invalid @enderror" value="{{ old('expedient_link', $expedient?->expedient_link) }}" id="expedient_link" placeholder="Link">
                         {!! $errors->first('expedient_link', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                     </div>
-                    
-
-                    
-
                 </div>
                 
                 <div class="col-md-6">
