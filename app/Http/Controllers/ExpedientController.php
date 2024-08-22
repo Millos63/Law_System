@@ -12,7 +12,6 @@ use App\Models\PromotionsAccord;
 
 
 use Illuminate\Support\Facades\Storage;
-
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\ExpedientRequest;
@@ -111,19 +110,27 @@ class ExpedientController extends Controller
             Storage::makeDirectory("public/$folderName/Promotions");
             Storage::makeDirectory("public/$folderName/Accords");
 
+            //Para revisar como se estan enviando los datos desde el formulario
             //foreach para recorrer la lista de promociones y acuerdos que se iran creando.
             foreach($request->input('promotions', [])as $index => $promotionData){
                 $promotionFile = null;
                 $accordFile = null;
 
-                if ($request->hasFile('promotion_file')&& $request->file("promotions.$index.promotion_file")->isValid()) {
-                    $promotionFile = $request->file("promotions.$index.promotion_file")->storeAs('public/' . $folderName . '/Promotions', time() . '_'  . $request->file("promotions.$index.promotion_file")->getClientOriginalName());
+                //dd($request->file("promotions.$index.promotion_file"));
+                if ($request->hasFile("promotions.$index.promotion_file") && $request->file("promotions.$index.promotion_file")->isValid()) {
+                    $promotionFile = $request->file("promotions.$index.promotion_file")->storeAs('public/' . $folderName . '/Promotions',time() . '_' . $request->file("promotions.$index.promotion_file")->getClientOriginalName());              
+                    //Para depuración
+
                 }
     
-                if ($request->hasFile('accord_file') && $request->file("promotions.$index.accord_file")->isValid()) {
-                    $accordFile = $request->file("promotions.$index.accord_file")->storeAs('public/' . $folderName . '/Accords', time() . '_'. $request->file("promotions.$index.accord_file")->getClientOriginalName());
+                // Verificar si el archivo de acuerdo está presente y es válido
+                if ($request->hasFile("promotions.$index.accord_file") && $request->file("promotions.$index.accord_file")->isValid()) {
+                    $accordFile = $request->file("promotions.$index.accord_file")->storeAs('public/' . $folderName . '/Accords', time() . '_' . $request->file("promotions.$index.accord_file")->getClientOriginalName());      
+
                 }
-    
+
+
+
                 $expedient->promotionsAccords()->create([
                     'id_expedient' => $expedient-> id,
                     'promotion_file' => $promotionFile,
@@ -133,6 +140,8 @@ class ExpedientController extends Controller
                     'accord_date' => $promotionData['accord_date'],
                     'accord_description' => $promotionData['accord_description'],
                 ]);
+
+
             }
 
             return $expedient;
