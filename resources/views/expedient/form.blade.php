@@ -199,7 +199,7 @@
 
     <div class="col-md-6">
         <!-- SECCIÓN DE PROMOCIONES Y ACUERDOS -->
-        <div style="border-radius: 2px; border: 1px solid #ddd; padding: 10px;">
+        <div class="promotion-container">
             <h5>{{ __('Promociones y Acuerdos') }}</h5>
             <div id="promotions">
                 <div class="promotion">
@@ -294,8 +294,8 @@
         let newPromotionDiv = document.createElement('div');
         newPromotionDiv.classList.add('promotion', 'mb-4');
         newPromotionDiv.innerHTML = `
-         <div class="row">
-            <div class="col-md-6">
+         <div class="row" style=" border-top: 1px solid black; padding-top: 10px">
+            <div class="col-md-6" >
                 <div class="form-group mb-2">
                     <label for="promotion_file_${index}" class="form-label">Archivo de Promoción:</label>
                     <input type="file" name="promotions[${index}][promotion_file]" class="form-control" id="promotion_file_${index}">

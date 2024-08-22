@@ -1,6 +1,8 @@
 /*Estilos para Expedientes*/
 
-.expedient_number{
-    background-color: black;
-    size: 100000px;
+.promotion-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+    max-height: 300px; /* Ajusta esta altura según tus necesidades */
+    overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
 }
