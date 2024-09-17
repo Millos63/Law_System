@@ -9,6 +9,7 @@ use App\Models\Judged;
 use App\Models\Matter;
 use App\Models\PromotionsAccord;
 use App\Models\ExpedientFile;
+use App\Models\Observation;
 
 
 use Illuminate\Support\Facades\Storage;
@@ -52,6 +53,8 @@ class ExpedientController extends Controller
 
         return view('expedient.create', compact('expedient', 'client', 'clients', 'promotionsAccords','judgeds'));
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -165,7 +168,19 @@ class ExpedientController extends Controller
                 ]);
             }
 
-
+            //SECCIÓN DE OBSERVACIONES.
+            //Para guardar las observaciones del expediente.
+            foreach($request->input('observations', [])as $index => $observationData){
+                
+                $expedient->observations()->create([
+                    'id_expedient' => $expedient -> id,
+                    'id_user' => $user -> id,
+                    'observation' => $observationData['observation'],
+                    'instruction' => $observationData['instruction'],
+                    'observation_date' => $observationData['observation_date'],
+                    
+                ]);
+            }
 
             return $expedient;
 

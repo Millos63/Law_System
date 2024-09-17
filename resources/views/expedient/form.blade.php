@@ -8,7 +8,7 @@
         </div>
 
         <div style="border-radius: 2px; border: 1px solid #ddd; padding: 10px; margin-bottom: 20px; padding-bottom: 57px;">
-            <h5>{{ __('Información del Cliente') }}</h5>
+            <legend>{{ __('Información del Cliente') }}</legend>
 
             <!--Estos divs son para dividir a clients en dos-->
 
@@ -240,30 +240,60 @@
             <h5>{{ __('Otros Archivos') }}</h5>
             <div id="files">
                 <div id="file">
-                    <div class="col-md-6">
-                        <div class="form-group mb-2">
-                            <label for="file_0" class="form-label">{{ __('Archivo:') }}</label>
-                            <input type="file" name="files[0][file]" class="form-control" id="file_0">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="file_date_0" class="form-label">{{ __('Fecha:') }}</label>
-                            <input type="date" name="files[0][file_date]" class="form-control" id="file_date_0">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="description_0" class="form-label">{{ __('Descripción:') }}</label>
-                            <input type="text" name="files[0][description]" class="form-control" id="description_0">
-                        </div>
+                    
+                    <div class="form-group mb-2">
+                        <label for="file_0" class="form-label">{{ __('Archivo:') }}</label>
+                        <input type="file" name="files[0][file]" class="form-control" id="file_0">
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="file_date_0" class="form-label">{{ __('Fecha:') }}</label>
+                        <input type="date" name="files[0][file_date]" class="form-control" id="file_date_0">
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="description_0" class="form-label">{{ __('Descripción:') }}</label>
+                        <input type="text" name="files[0][description]" class="form-control" id="description_0">
                     </div>
                 </div>
-
             </div>
             <button type="button" class="btn btn-secondary mt-2" id="addFile">{{ __('Agregar Archivo') }}</button>
         </div>
     </div>
 
-    <div class="col-md-12 mt-3">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+
+    <div class="col-md-12" style = "margin-top:20px">
+        <!-- SECCIÓN DE OBSERVACIONES -->
+        <div class="files_container">
+            <h5>{{ __('Observaciones') }}</h5>
+            <div id="files">
+                <div id="file">
+                    
+                    <div class="form-group mb-2">
+                        <label for="file_0" class="form-label">{{ __('Archivo:') }}</label>
+                        <input type="file" name="files[0][file]" class="form-control" id="file_0">
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="file_date_0" class="form-label">{{ __('Fecha:') }}</label>
+                        <input type="date" name="files[0][file_date]" class="form-control" id="file_date_0">
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="description_0" class="form-label">{{ __('Descripción:') }}</label>
+                        <input type="text" name="files[0][description]" class="form-control" id="description_0">
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="addFile">{{ __('Agregar Archivo') }}</button>
+        </div>
     </div>
+
+
+
+
+
+        
+
+<div class="col-md-12 mt-3">
+    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+</div>
 </div>
 
 <!-- Estilos adicionales -->

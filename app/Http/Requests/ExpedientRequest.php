@@ -64,6 +64,12 @@ class ExpedientRequest extends FormRequest
             'file_date' => 'nullable|date',
             'description' => 'nullable|string',
 
+            //Request para el registro de nuestras observaciones
+            'observation' => 'nullable|string',
+            'instruction' => 'nullable|string',
+            'observation_date' => 'nullable|date',
+            
+
         ];
     }
 }
