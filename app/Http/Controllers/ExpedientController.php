@@ -168,6 +168,8 @@ class ExpedientController extends Controller
                 ]);
             }
 
+            //para obtener al usuario autenticado
+            $user = auth()->user();
             //SECCIÓN DE OBSERVACIONES.
             //Para guardar las observaciones del expediente.
             foreach($request->input('observations', [])as $index => $observationData){

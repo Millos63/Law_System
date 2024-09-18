@@ -22,11 +22,11 @@ class ObservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'id_expedient' => 'required',
-			'id_user' => 'required',
-			'observation' => 'required|string',
-			'instruction' => 'required|string',
-			'observation_date' => 'required',
+			'id_expedient' => 'nullable',
+			'id_user' => 'nullable',
+			'observation' => 'nullable|string',
+			'instruction' => 'nullable|string',
+			'observation_date' => 'nullable',
         ];
     }
 }

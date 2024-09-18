@@ -260,28 +260,34 @@
     </div>
 
 
-    <div class="col-md-12" style = "margin-top:20px">
-        <!-- SECCIÓN DE OBSERVACIONES -->
-        <div class="files_container">
+    <div class="col-md-12" style="margin-top:20px">
+    <!-- SECCIÓN DE OBSERVACIONES -->
+        <div class="observations_container">
             <h5>{{ __('Observaciones') }}</h5>
-            <div id="files">
-                <div id="file">
-                    
-                    <div class="form-group mb-2">
-                        <label for="file_0" class="form-label">{{ __('Archivo:') }}</label>
-                        <input type="file" name="files[0][file]" class="form-control" id="file_0">
+            <div id="observations">
+                <div id="observation" class="row">
+                    <div class="form-group col-md-3 mb-2">
+                        <label for="observation_date_0" class="form-label">{{ __('Fecha:') }}</label>
+                        <input type="date" name="observations[0][observation_date]" class="form-control" id="observation_date_0" value="{{ \Carbon\Carbon::now()->toDateString() }}">
                     </div>
-                    <div class="form-group mb-2">
-                        <label for="file_date_0" class="form-label">{{ __('Fecha:') }}</label>
-                        <input type="date" name="files[0][file_date]" class="form-control" id="file_date_0">
+
+                    <div class="form-group col-md-3 mb-2">
+                        <label for="observation_0" class="form-label">{{ __('Observación:') }}</label>
+                        <input type="text" name="observations[0][observation]" class="form-control" id="observation_0">
                     </div>
-                    <div class="form-group mb-2">
-                        <label for="description_0" class="form-label">{{ __('Descripción:') }}</label>
-                        <input type="text" name="files[0][description]" class="form-control" id="description_0">
+
+                    <div class="form-group col-md-3 mb-2">
+                        <label for="instruction_0" class="form-label">{{ __('Instrucciones:') }}</label>
+                        <input type="text" name="observations[0][instruction]" class="form-control" id="instruction_0">
+                    </div>
+
+                    <div class="form-group col-md-3 mb-2">
+                        <label for="id_user_0" class="form-label">{{ __('Creado por:') }}</label>
+                        <input type="text" name="observations[0][id_user]" class="form-control" id="id_user_0" value="{{auth()->user()->name}}" readonly onmousedown="return false;">
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn btn-secondary mt-2" id="addFile">{{ __('Agregar Archivo') }}</button>
+            <button type="button" class="btn btn-secondary mt-2" id="addObservation">{{ __('Agregar Observación') }}</button>
         </div>
     </div>
 
@@ -395,5 +401,34 @@
         `;
         filesDiv.appendChild(newFileDiv);
 
+    })
+
+    document.getElementById('addObservation').addEventListener('click', function(){
+        let observationsDiv = document.getElementById('observations');
+        let indexObservation = observationsDiv.children.length;
+        let newObservationDiv = document.createElement('div');
+        newObservationDiv.classList.add('observation', 'row', 'mb-4');
+        newObservationDiv.innerHTML = `
+        <div style="border-top: 1px solid black; padding-top: 10px" class="row">
+            <div class="form-group col-md-3 mb-2">
+                <label for="observation_date_${indexObservation}" class="form-label">{{ __('Fecha:') }}</label>
+                <input type="date" name="observations[${indexObservation}][observation_date]" class="form-control" id="observation_date_${indexObservation}"  value="{{ \Carbon\Carbon::now()->toDateString() }}">
+            </div>
+            <div class="form-group col-md-3 mb-2">
+                <label for="observation_${indexObservation}" class="form-label">{{ __('Observación:') }}</label>
+                <input type="text" name="observations[${indexObservation}][observation]" class="form-control" id="observation_${indexObservation}">
+            </div>
+
+            <div class="form-group col-md-3 mb-2">
+                <label for="instruction_${indexObservation}" class="form-label">{{ __('Instrucciónes: ') }}</label>
+                <input type="text" name="observations[${indexObservation}][instruction]" class="form-control" id="instruction_${indexObservation}">
+            </div>
+            <div class="form-group col-md-3 mb-2">
+                <label for="id_user_${indexObservation}" class="form-label">{{ __('Creado por:') }}</label>
+                <input type="text" name="observations[${indexObservation}][id_user]" class="form-control" id="id_user_${indexObservation}" value="{{auth()->user()->name}}" readonly onmousedown="return false;">
+            </div>
+        </div>
+        `;
+        observationsDiv.appendChild(newObservationDiv);
     })
 </script>
