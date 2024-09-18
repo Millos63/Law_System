@@ -215,11 +215,16 @@ class ExpedientController extends Controller
         //Pasando todos los clientes para el foreach
         $clients = Client::all();
 
+        // Pasando todos los juzgados para la selección en el formulario
+        $judgeds = Judged::all();
+
         //Modificando para poder editar al mismo tiempo el cliente también, mostrando la información en los inputs del cliente que corresponde
         $client = Client::find($expedient->id_client);
 
-
-        return view('expedient.edit', compact('expedient','client', 'clients'));
+        // Obtener las observaciones asociadas al expediente
+        $observations = $expedient->observations;
+        
+        return view('expedient.edit', compact('expedient','client', 'clients', 'judgeds'));
     }
 
     /**

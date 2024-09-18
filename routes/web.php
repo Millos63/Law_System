@@ -36,4 +36,4 @@ Route::get('expedients/{id_expedient}/promotions-accords/create', [App\Http\Cont
 //Formulario donde meteremos todo
 Route::resource('expedients-all', App\Http\Controllers\ExpedientAllController::class)->middleware('auth');
 
-Route::put('expedients/{expedient}', [App\Http\Controllers\ExpedientController::class, 'update'])->name('expedients.update');
+
