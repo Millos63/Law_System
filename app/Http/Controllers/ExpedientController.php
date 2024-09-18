@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Expedient;
 use App\Models\Client;
 use App\Models\Judged;
+use App\Models\Judment;
+
 use App\Models\Matter;
 use App\Models\PromotionsAccord;
 use App\Models\ExpedientFile;
@@ -41,6 +43,7 @@ class ExpedientController extends Controller
         $clients = Client::all();
         $judgeds = Judged::all();
         $matter = Matter::all();
+        $judments = Judment::all();
 
 
         //Para poder mostrar la información del cliente seleccionado en los inputs al seleccionar un cliente en el expediente
@@ -51,7 +54,7 @@ class ExpedientController extends Controller
 
         $promotionsAccords = collect();
 
-        return view('expedient.create', compact('expedient', 'client', 'clients', 'promotionsAccords','judgeds'));
+        return view('expedient.create', compact('expedient', 'client', 'clients', 'promotionsAccords','judgeds', 'judments'));
     }
 
 
@@ -223,7 +226,7 @@ class ExpedientController extends Controller
 
         // Obtener las observaciones asociadas al expediente
         $observations = $expedient->observations;
-        
+
         return view('expedient.edit', compact('expedient','client', 'clients', 'judgeds'));
     }
 

@@ -101,8 +101,8 @@
         <div style="border-radius: 2px; border: 1px solid #ddd; padding: 10px; margin-bottom: 20px;">
             <h5>{{ __('Datos del Expediente') }}</h5>
 
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row" style="padding-top: 8px">
+                <div class="col-md-6" >
                     <!-- Primera mitad de los campos -->
 
                     <div class="form-group mb-2">
@@ -111,43 +111,45 @@
                         {!! $errors->first('authority', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                     </div>
 
-
                     <div class="form-group mb-2">
-                        <label for="id_judment" class="form-label">{{ __('Juicio: ') }}</label>
-                        <input type="text" name="id_judment" class="form-control @error('id_judment') is-invalid @enderror" value="{{ old('id_judment', $expedient?->id_judment) }}" id="id_judment" placeholder="Juicio">
+                        <label for="id_judment" class="form-label">{{ __('Juicio:') }}</label>
+                        <select name="id_judment" class="form-control @error('id_judment') is-invalid @enderror" id="id_judment">
+                            @foreach($judments as $judment)
+                                <option value="{{$judment->id}}"{{ old('id_judment', $expedient?->id_judment)  == $judment->id ? 'selected' : ''}}>
+                                    {{$judment->judment}} 
+                                </option>
+                            @endforeach
+                        </select>
                         {!! $errors->first('id_judment', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                     </div>
 
                     <div class="row" style="padding-top: 15px">
                         <h5>Información de toca</h5>
-                        <div class = "col-md-2">
+                        <div class = "col-md-3">
                             <div class="form-group mb-2">
                                 <label for="touch_number" class="form-label">{{ __('No.') }}</label>
                                 <input type="text" name="touch_number" class="form-control @error('touch_number') is-invalid @enderror" value="{{ old('touch_number', $expedient?->touch_number) }}" id="touch_number" placeholder="No.">
                                 {!! $errors->first('touch_number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                             </div>
                         </div>
-                        <div class = "col-md-4" style="padding-left: 20px">
+                        <div class = "col-md-5" style="padding-left: 1px">
                             <div class="form-group mb-2">
                                 <label for="touch_room" class="form-label">{{ __('Sala') }}</label>
                                 <input type="text" name="touch_room" class="form-control @error('touch_room') is-invalid @enderror" value="{{ old('touch_room', $expedient?->touch_room) }}" id="touch_room" placeholder="Sala">
                                 {!! $errors->first('touch_room', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                             </div>
                         </div>
-                        <div class = "col-md-4">
-                            <div class="form-group mb-2">
+                        <div class = "col-md-3"  style="padding-left:1px">
+                            <div class="form-group mb-2" >
                                 <label for="room_number" class="form-label">{{ __('No.Sala') }}</label>
                                 <input type="text" name="room_number" class="form-control @error('room_number') is-invalid @enderror" value="{{ old('room_number', $expedient?->room_number) }}" id="room_number" placeholder="No.Sala">
                                 {!! $errors->first('room_number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                             </div>
                         </div>
                     </div>
-                    <div class="form-group mb-2">
-                        <label for="expedient_link" class="form-label">{{ __('Link de Expediente: ') }}</label>
-                        <input type="text" name="expedient_link" class="form-control @error('expedient_link') is-invalid @enderror" value="{{ old('expedient_link', $expedient?->expedient_link) }}" id="expedient_link" placeholder="Link">
-                        {!! $errors->first('expedient_link', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-                    </div>
+                    
                 </div>
+               
                 
                 <div class="col-md-6">
                     <!-- Segunda mitad de los campos -->
@@ -169,14 +171,14 @@
 
                     <div class="row" style="padding-top: 15px">
                     <h5>Información de amparo</h5>
-                        <div class= "col-md-2">
+                        <div class= "col-md-4">
                             <div class="form-group mb-2">
                                 <label for="protection_number" class="form-label">{{ __('Número:') }}</label>
                                 <input type="text" name="protection_number" class="form-control @error('protection_number') is-invalid @enderror" value="{{ old('protection_number', $expedient?->protection_number) }}" id="protection_number" placeholder="No.">
                                 {!! $errors->first('protection_number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                             </div>
                         </div>
-                        <div class= "col-md-5">
+                        <div class= "col-md-8">
                             <div class="form-group mb-2">
                                 <label for="protection_authority" class="form-label">{{ __('Autoridad:') }}</label>
                                 <input type="text" name="protection_authority" class="form-control @error('protection_authority') is-invalid @enderror" value="{{ old('protection_authority', $expedient?->protection_authority) }}" id="protection_authority" placeholder="Autoridad">
@@ -185,6 +187,13 @@
                         </div>
                     </div> 
 
+                   
+
+                </div>
+                <div class="form-group mb-1" style="padding-top:15px">
+                    <label for="expedient_link" class="form-label">{{ __('Link de Expediente: ') }}</label>
+                    <input type="text" name="expedient_link" class="form-control @error('expedient_link') is-invalid @enderror" value="{{ old('expedient_link', $expedient?->expedient_link) }}" id="expedient_link" placeholder="Link">
+                    {!! $errors->first('expedient_link', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                 </div>
             </div>
         </div>

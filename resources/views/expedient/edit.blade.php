@@ -18,7 +18,7 @@
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('expedient.form')
+                            @include('expedient.update')
 
                         </form>
                     </div>
