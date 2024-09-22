@@ -103,7 +103,7 @@ class Expedient extends Model
      */
     public function promotionsAccords()
     {
-        return $this->hasMany(\App\Models\PromotionsAccord::class, 'id', 'id_expedient');
+        return $this->hasMany(\App\Models\PromotionsAccord::class, 'id_expedient', 'id');
     }
     
 }

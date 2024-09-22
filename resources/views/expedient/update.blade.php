@@ -198,40 +198,52 @@
         <div class="promotion_container">
             <h5>{{ __('Promociones y Acuerdos') }}</h5>
             <div id="promotions">
-                <div class="promotion">
+
+                <!--Para recorrer todas nuestras promociones y acuerdos-->
+                @foreach($expedient->promotionsAccords as $index => $promotion)
+                <div class="promotion mb-4">
                     <div class="row">
-                        <!--Division para promociones-->
+                        <!-- División para promociones -->
                         <div class="col-md-6">
                             <div class="form-group mb-2">
-                                <label for="promotion_file_0" class="form-label">{{ __('Archivo de Promoción:') }}</label>
-                                <input type="file" name="promotions[0][promotion_file]" class="form-control" id="promotion_file_0">
+                                <label for="promotion_file_{{ $index }}" class="form-label">{{ __('Archivo de Promoción:') }}</label>
+                                <input type="file" name="promotions[{{ $index }}][promotion_file]" class="form-control" id="promotion_file_{{ $index }}">
+                                @if($promotion->promotion_file)
+                                    <a href="{{ Storage::url($promotion->promotion_file) }}" target="_blank">Ver archivo existente</a>
+                                @endif
                             </div>
                             <div class="form-group mb-2">
-                                <label for="promotion_date_0" class="form-label">{{ __('Fecha de Promoción:') }}</label>
-                                <input type="date" name="promotions[0][promotion_date]" class="form-control" id="promotion_date_0">
+                                <label for="promotion_date_{{ $index }}" class="form-label">{{ __('Fecha de Promoción:') }}</label>
+                                <input type="date" name="promotions[{{ $index }}][promotion_date]" class="form-control" id="promotion_date_{{ $index }}" value="{{ old('promotions.' . $index . '.promotion_date', $promotion->promotion_date ? $promotion->promotion_date->format('Y-m-d') : ''  ) }}">
                             </div>
                             <div class="form-group mb-2">
-                                <label for="promotion_description_0" class="form-label">{{ __('Descripción de la Promoción:') }}</label>
-                                <input type="text" name="promotions[0][promotion_description]" class="form-control" id="promotion_description_0" placeholder="Descripción">
+                                <label for="promotion_description_{{ $index }}" class="form-label">{{ __('Descripción de la Promoción:') }}</label>
+                                <input type="text" name="promotions[{{ $index }}][promotion_description]" class="form-control" id="promotion_description_{{ $index }}" placeholder="Descripción" value="{{ old('promotions.' . $index . '.promotion_description', $promotion->promotion_description) }}">
                             </div>
                         </div>
-                        <!--Sección de acuerdos--->
+                        <!-- Sección de acuerdos -->
                         <div class="col-md-6">
                             <div class="form-group mb-2">
-                                <label for="accord_file_0" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
-                                <input type="file" name="promotions[0][accord_file]" class="form-control" id="accord_file_0">
+                                <label for="accord_file_{{ $index }}" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
+                                <input type="file" name="promotions[{{ $index }}][accord_file]" class="form-control" id="accord_file_{{ $index }}">
+                                @if($promotion->accord_file)
+                                    <a href="{{ Storage::url($promotion->accord_file) }}" target="_blank">Ver archivo existente</a>
+                                @endif
                             </div>
                             <div class="form-group mb-2">
-                                <label for="accord_date_0" class="form-label">{{ __('Fecha de Acuerdo:') }}</label>
-                                <input type="date" name="promotions[0][accord_date]" class="form-control" id="accord_date_0">
+                                <label for="accord_date_{{ $index }}" class="form-label">{{ __('Fecha de Acuerdo:') }}</label>
+                                <input type="date" name="promotions[{{ $index }}][accord_date]" class="form-control" id="accord_date_{{ $index }}" value="{{ old('promotions.' . $index . '.accord_date', $promotion->accord_date  ? $promotion->accord_date->format('Y-m-d') : '') }}">
                             </div>
                             <div class="form-group mb-2">
-                                <label for="accord_description_0" class="form-label">{{ __('Descripción del Acuerdo:') }}</label>
-                                <input type="text" name="promotions[0][accord_description]" class="form-control" id="accord_description_0" placeholder="Descripción">
+                                <label for="accord_description_{{ $index }}" class="form-label">{{ __('Descripción del Acuerdo:') }}</label>
+                                <input type="text" name="promotions[{{ $index }}][accord_description]" class="form-control" id="accord_description_{{ $index }}" placeholder="Descripción" value="{{ old('promotions.' . $index . '.accord_description', $promotion->accord_description) }}">
                             </div>
                         </div>
                     </div>
+                    <!-- Campo oculto para el ID de la promoción -->
+                    <input type="hidden" name="promotions[{{ $index }}][id]" value="{{ $promotion->id }}">
                 </div>
+                @endforeach
             </div>
             <button type="button" class="btn btn-secondary mt-2" id="addPromotion">{{ __('Agregar Promoción') }}</button>
         </div>

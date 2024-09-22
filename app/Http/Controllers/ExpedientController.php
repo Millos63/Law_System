@@ -213,9 +213,9 @@ class ExpedientController extends Controller
      */
     public function edit($id): View
     {
-        $expedient = Expedient::with('promotionsAccords', 'expedientFiles', 'observations')->find($id);
+        $expedient = Expedient::with('promotionsAccords', 'expedientFiles', 'observations')->findOrFail($id);
 
-        //Pasando todos los clientes para el foreach
+         //Pasando todos los clientes para el foreach
         $clients = Client::all();
 
         // Pasando todos los juzgados para la selección en el formulario
@@ -276,7 +276,7 @@ class ExpedientController extends Controller
         foreach ($promotions as $index => $promotionData) {
             // Si hay un id en la data, actualiza la promoción/acuerdo existente
             if(!empty($promotionData['id'])){
-                $promotion = PromotionAccord::findOrFail($promotionData['id']);
+                $promotion = PromotionsAccord::findOrFail($promotionData['id']);
                 $promotion->update([
                     'promotion_date' => $promotionData['promotion_date'],
                     'promotion_description' => $promotionData['promotion_description'],

@@ -34,6 +34,12 @@ class PromotionsAccord extends Model
      */
     protected $fillable = ['id_expedient', 'promotion_file', 'promotion_date', 'promotion_description', 'accord_file', 'accord_date', 'accord_description'];
 
+    // Agrega esta propiedad
+    protected $casts = [
+        'promotion_date' => 'date',
+        'accord_date' => 'date',
+    ];
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
