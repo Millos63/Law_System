@@ -1,6 +1,5 @@
 <div class="row padding-1 p-1">
     <div class="col-md-6">
-        <!-- FORMULARIO PARA CLIENTES -->
         <div class="form-group mb-2 ">
             <label for="expedient_number" class="form-label">{{ __('Numero de expediente:') }}</label>
             <input type="text" name="expedient_number" class="form-control @error('expedient_number') is-invalid @enderror" value="{{ old('expedient_number', $expedient?->expedient_number) }}" id="expedient_number" placeholder="Numero de expediente">
@@ -9,6 +8,9 @@
 
         <div style="border-radius: 2px; border: 1px solid #ddd; padding: 10px; margin-bottom: 20px; padding-bottom: 57px;">
             <legend>{{ __('Información del Cliente') }}</legend>
+
+
+                    <!-- FORMULARIO PARA CLIENTES -->
 
             <!--Estos divs son para dividir a clients en dos-->
 

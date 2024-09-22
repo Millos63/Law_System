@@ -213,7 +213,7 @@ class ExpedientController extends Controller
      */
     public function edit($id): View
     {
-        $expedient = Expedient::find($id);
+        $expedient = Expedient::with('promotionsAccords', 'expedientFiles', 'observations')->find($id);
 
         //Pasando todos los clientes para el foreach
         $clients = Client::all();
@@ -221,13 +221,16 @@ class ExpedientController extends Controller
         // Pasando todos los juzgados para la selección en el formulario
         $judgeds = Judged::all();
 
+        //Pasando todos los juicios para la seleccion en el formulario de Edit
+        $judments = Judment::all();
+
         //Modificando para poder editar al mismo tiempo el cliente también, mostrando la información en los inputs del cliente que corresponde
         $client = Client::find($expedient->id_client);
 
         // Obtener las observaciones asociadas al expediente
         $observations = $expedient->observations;
 
-        return view('expedient.edit', compact('expedient','client', 'clients', 'judgeds'));
+        return view('expedient.edit', compact('expedient','client', 'clients', 'judgeds','judments'));
     }
 
     /**
@@ -266,6 +269,40 @@ class ExpedientController extends Controller
             'protection_authority',
 
         ]));
+
+        //Actualizar las promociones y acuerdos
+        $promotions = $request->input('promotions', []);
+
+        foreach ($promotions as $index => $promotionData) {
+            // Si hay un id en la data, actualiza la promoción/acuerdo existente
+            if(!empty($promotionData['id'])){
+                $promotion = PromotionAccord::findOrFail($promotionData['id']);
+                $promotion->update([
+                    'promotion_date' => $promotionData['promotion_date'],
+                    'promotion_description' => $promotionData['promotion_description'],
+                    'accord_date' => $promotionData['accord_date'],
+                    'accord_description' => $promotionData['accord_description'],
+
+                    //Para el manejo de los archivos 
+                    'promotion_file' => isset($promotionData['promotion_file']) ? $promotionData['promotion_file']->store('promotions', 'public') : $promotion->promotion_file,
+                    'accord_file' => isset($promotionData['accord_file']) ? $promotionData['accord_file']->store('accords', 'public') : $promotion->accord_file,
+
+                ]);
+            } else {
+                //Si no hay id, crea una nueva promocion/acuerdo
+                PromotionAccord::Create([
+                    'id_expedient' => $expedient->id,
+                    'promotion_date' => $promotionData['promotion_date'],
+                    'promotion_description' => $promotionData['promotion_description'],
+                    'accord_date' => $promotionData['accord_date'],
+                    'accord_description' => $promotionData['accord_description'],
+
+                    //Para cargar los archivos
+                    'promotion_file' => isset($promotionData['promotion_file']) ? $promotionData['promotion_file']->store('promotions','public') : null,
+                    'accord_file' => isset($promotionData['accord_file']) ? $promotionData['accord_file']->store('accords', 'public') : null,
+                ]);
+            }
+        }
 
         return Redirect::route('expedients.index')
             ->with('success', 'Expedient updated successfully');
