@@ -209,7 +209,25 @@
                                 <label for="promotion_file_{{ $index }}" class="form-label">{{ __('Archivo de Promoción:') }}</label>
                                 <input type="file" name="promotions[{{ $index }}][promotion_file]" class="form-control" id="promotion_file_{{ $index }}">
                                 @if($promotion->promotion_file)
-                                    <a href="{{ Storage::url($promotion->promotion_file) }}" target="_blank">Ver archivo existente</a>
+                                    <!--Para Mostrar nuestros archivos PDF, si es PDF se muestra, si es otro archivo solo se muestra el link de descarga-->                                    
+                                    @php 
+                                        $extension = strtolower(pathinfo($promotion->promotion_file, PATHINFO_EXTENSION));
+                                    @endphp
+
+                                    @if($extension === 'pdf' || 'jpg' || 'png')
+                                    <div class="mb-2">
+                                        <iframe src="{{Storage::url($promotion->promotion_file) }}" width="100%" height="500px"></iframe>
+                                    </div>
+                                     <!-- Mostrar el enlace de descarga debajo del iframe -->
+                                    <div class="mb-2">
+                                        <a href="{{ Storage::url($promotion->promotion_file) }}" download>Descargar archivo</a>
+                                    </div>
+                                    @else
+                                        <!--No se mostrara el IFRAME-->
+                                        <div class="mb-2">
+                                            <a href="{{Storage::url($promotion->promotion_file)}}" download>Descargar archivo</a>
+                                        </div>
+                                    @endif
                                 @endif
                             </div>
                             <div class="form-group mb-2">
@@ -227,7 +245,7 @@
                                 <label for="accord_file_{{ $index }}" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
                                 <input type="file" name="promotions[{{ $index }}][accord_file]" class="form-control" id="accord_file_{{ $index }}">
                                 @if($promotion->accord_file)
-                                    <a href="{{ Storage::url($promotion->accord_file) }}" target="_blank">Ver archivo existente</a>
+                                    <a href="{{ Storage::url($promotion->accord_file) }}" target="_blank">Ver archivo</a>
                                 @endif
                             </div>
                             <div class="form-group mb-2">
