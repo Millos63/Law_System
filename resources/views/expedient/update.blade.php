@@ -195,17 +195,21 @@
 
     <div class="col-md-6">
         <!-- SECCIÓN DE PROMOCIONES Y ACUERDOS -->
+        
         <div class="promotion_container">
-            <h5>{{ __('Promociones y Acuerdos') }}</h5>
+        <h5>{{ __('Promociones y Acuerdos') }}</h5>    
             <div id="promotions">
 
                 <!--Para recorrer todas nuestras promociones y acuerdos-->
                 @foreach($expedient->promotionsAccords as $index => $promotion)
                 <div class="promotion mb-4">
-                    <div class="row">
+                    <div class="row" style="border-top: 1px solid black; padding-top: 30px">
                         <!-- División para promociones -->
                         <div class="col-md-6">
-                            <div class="form-group mb-2">
+                            
+                        
+                        
+                        <div class="form-group mb-2">
                                 <label for="promotion_file_{{ $index }}" class="form-label">{{ __('Archivo de Promoción:') }}</label>
                                 <input type="file" name="promotions[{{ $index }}][promotion_file]" class="form-control" id="promotion_file_{{ $index }}">
                                 @if($promotion->promotion_file)
@@ -216,7 +220,7 @@
 
                                     @if($extension === 'pdf' || 'jpg' || 'png')
                                     <div class="mb-2">
-                                        <iframe src="{{Storage::url($promotion->promotion_file) }}" width="100%" height="500px"></iframe>
+                                        <iframe src="{{Storage::url($promotion->promotion_file) }}" width="100%" height="250PX"></iframe>
                                     </div>
                                      <!-- Mostrar el enlace de descarga debajo del iframe -->
                                     <div class="mb-2">
@@ -228,8 +232,13 @@
                                             <a href="{{Storage::url($promotion->promotion_file)}}" download>Descargar archivo</a>
                                         </div>
                                     @endif
+                                    <a href="{{ Storage::url($promotion->accord_file) }}" target="_blank">Ver archivo</a>
                                 @endif
                             </div>
+                            
+                            
+                            
+                            
                             <div class="form-group mb-2">
                                 <label for="promotion_date_{{ $index }}" class="form-label">{{ __('Fecha de Promoción:') }}</label>
                                 <input type="date" name="promotions[{{ $index }}][promotion_date]" class="form-control" id="promotion_date_{{ $index }}" value="{{ old('promotions.' . $index . '.promotion_date', $promotion->promotion_date ? $promotion->promotion_date->format('Y-m-d') : ''  ) }}">
@@ -240,14 +249,46 @@
                             </div>
                         </div>
                         <!-- Sección de acuerdos -->
+                        
+                        
+                        
+                        
+                        
                         <div class="col-md-6">
                             <div class="form-group mb-2">
                                 <label for="accord_file_{{ $index }}" class="form-label">{{ __('Archivo de Acuerdo:') }}</label>
                                 <input type="file" name="promotions[{{ $index }}][accord_file]" class="form-control" id="accord_file_{{ $index }}">
                                 @if($promotion->accord_file)
+                                    <!--Para Mostrar nuestros archivos PDF, si es PDF se muestra, si es otro archivo solo se muestra el link de descarga-->                                    
+                                    @php 
+                                        $extension = strtolower(pathinfo($promotion->accord_file, PATHINFO_EXTENSION));
+                                    @endphp
+
+                                    @if($extension === 'pdf' || 'jpg' || 'png')
+                                    <div class="mb-2">
+                                        <iframe src="{{Storage::url($promotion->accord_file) }}" width="100%" height="250px"></iframe>
+                                    </div>
+
+                                    <!-- Mostrar el enlace de descarga abajo del Iframe -->
+                                     <div class="mb-2">
+                                        <a href="{{Storage::url($promotion->accord_file) }}" download>Descargar Archivo</a>
+
+                                     </div>
+                                    @else
+                                        <!--No se mostrara el IFRAME-->
+                                        <div class="mb-2">
+                                            <a href="{{Storage::url($promotion->promotion_file)}}" download>Descargar archivo</a>
+                                        </div>
+                                    @endif
                                     <a href="{{ Storage::url($promotion->accord_file) }}" target="_blank">Ver archivo</a>
                                 @endif
                             </div>
+                           
+                           
+                           
+                           
+                           
+                           
                             <div class="form-group mb-2">
                                 <label for="accord_date_{{ $index }}" class="form-label">{{ __('Fecha de Acuerdo:') }}</label>
                                 <input type="date" name="promotions[{{ $index }}][accord_date]" class="form-control" id="accord_date_{{ $index }}" value="{{ old('promotions.' . $index . '.accord_date', $promotion->accord_date  ? $promotion->accord_date->format('Y-m-d') : '') }}">

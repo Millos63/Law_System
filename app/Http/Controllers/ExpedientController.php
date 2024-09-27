@@ -276,31 +276,56 @@ class ExpedientController extends Controller
         foreach ($promotions as $index => $promotionData) {
             // Si hay un id en la data, actualiza la promoción/acuerdo existente
             if(!empty($promotionData['id'])){
-                $promotion = PromotionsAccord::findOrFail($promotionData['id']);
-                $promotion->update([
-                    'promotion_date' => $promotionData['promotion_date'],
-                    'promotion_description' => $promotionData['promotion_description'],
-                    'accord_date' => $promotionData['accord_date'],
-                    'accord_description' => $promotionData['accord_description'],
+                
+                //Obteniendo los archivos desde el request
+                $promotionFile = $request->file("promotions.$index.promotion_file");
+                $accordFile = $request->file("promotions.$index.accord_file");
 
-                    //Para el manejo de los archivos 
-                    'promotion_file' => isset($promotionData['promotion_file']) ? $promotionData['promotion_file']->store('promotions', 'public') : $promotion->promotion_file,
-                    'accord_file' => isset($promotionData['accord_file']) ? $promotionData['accord_file']->store('accords', 'public') : $promotion->accord_file,
+                if(!empty($promotionData['id'])){
+                    //Actualizar promocion existente 
+                    $promotion = PromotionsAccord::findOrFail($promotionData['id']);
+                    $promotion->promotion_date = $promotionData['promotion_date'];
+                    $promotion->promotion_description = $promotionData['promotion_description'];
+                    $promotion->accord_date = $promotionData['accord_date'];
+                    $promotion->accord_description = $promotionData['accord_description'];
 
-                ]);
+                    //Para el manejo de los archivos
+                    if($promotionFile && $promotionFile->isValid()){
+                        //Eliminar el archivo anterior si es necesario
+                        if($promotion->promotion_file){
+                            Storage::disk('public')->delete($promotion->promotion_file); 
+                        }
+                        $promotion->promotion_file = $promotionFile->store('promotions','public');
+                    }
+
+                    if($accordFile && $accordFile->isValid()){
+                        if($promotion->accord_file){
+                            Storage::disk('public')->delete($promotion->accord_file);
+                        }
+                        $promotion->accord_file = $accordFile->store('accords', 'public');
+                    }
+
+                    $promotion->save();
+                }
             } else {
-                //Si no hay id, crea una nueva promocion/acuerdo
-                PromotionAccord::Create([
-                    'id_expedient' => $expedient->id,
-                    'promotion_date' => $promotionData['promotion_date'],
-                    'promotion_description' => $promotionData['promotion_description'],
-                    'accord_date' => $promotionData['accord_date'],
-                    'accord_description' => $promotionData['accord_description'],
+                // Crear nueva promoción/acuerdo
+                $newPromotion = new PromotionsAccord();
+                $newPromotion->id_expedient = $expedient->id;
+                $newPromotion->promotion_date = $promotionData['promotion_date'];
+                $newPromotion->promotion_description = $promotionData['promotion_description'];
+                $newPromotion->accord_date = $promotionData['accord_date'];
+                $newPromotion->accord_description = $promotionData['accord_description'];
 
-                    //Para cargar los archivos
-                    'promotion_file' => isset($promotionData['promotion_file']) ? $promotionData['promotion_file']->store('promotions','public') : null,
-                    'accord_file' => isset($promotionData['accord_file']) ? $promotionData['accord_file']->store('accords', 'public') : null,
-                ]);
+                // Manejo de archivos
+                if ($promotionFile && $promotionFile->isValid()) {
+                    $newPromotion->promotion_file = $promotionFile->store('promotions', 'public');
+                }
+
+                if ($accordFile && $accordFile->isValid()) {
+                    $newPromotion->accord_file = $accordFile->store('accords', 'public');
+                }
+
+                $newPromotion->save();
             }
         }
 
