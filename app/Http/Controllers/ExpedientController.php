@@ -276,6 +276,7 @@ class ExpedientController extends Controller
         //Crear directortios si no existen para promociones y acuerdos
         Storage::makeDirectory("public/$folderName/Promociones");
         Storage::makeDirectory("public/$folderName/Acuerdos");
+        
         //Directorio para los archivos de expedientes
         Storage::makeDirectory("public/$folderName/Archivos");
 
@@ -359,7 +360,6 @@ class ExpedientController extends Controller
         //-------Seccion de actualizacion de archivos ------///
 
         $files = $request->input('files', []);
-
         foreach($files as $index => $fileData){
             //Obtener el archivo del request
             $file = $request->file("files.$index.file");
@@ -398,6 +398,33 @@ class ExpedientController extends Controller
                     'file' => $filePath,
                     'file_date' => $fileData['file_date'],
                     'description' => $fileData['description'],
+                ]);
+            }
+        }
+
+
+        //----------SECCION DE ACTUALIZACION DE OBSERVACIONES-------////
+        $observations = $request->input('observations', []);
+
+        //Obtener el usuario autenticado
+        $user = auth()->user();
+
+        foreach($observations as $index => $observationData){
+            if(!empty($observationData['id'])){
+                //Actualizar observación existente
+                $observation = Observation::findOrFail($observationData['id']);
+                $observation->observation = $observationData['observation'];
+                $observation->instruction = $observationData['instruction'];
+                $observation->observation_date = $observationData['observation_date'];
+                $observation->save();
+            }else{
+                //Crear una nueva observación
+                $expedient->observations()->create([
+                    'id_expedient' => $expedient->id,
+                    'id_user'=> $user->id,
+                    'observation' => $observationData['observation'],
+                    'instruction' => $observationData['instruction'],
+                    'observation_date' => $observationData['observation_date'],
                 ]);
             }
         }

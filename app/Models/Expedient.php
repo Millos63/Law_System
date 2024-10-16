@@ -87,7 +87,7 @@ class Expedient extends Model
      */
     public function observations()
     {
-        return $this->hasMany(\App\Models\Observation::class, 'id', 'id_expedient');
+        return $this->hasMany(\App\Models\Observation::class, 'id_expedient', 'id');
     }
     
     /**

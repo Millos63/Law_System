@@ -355,27 +355,32 @@
         <div class="observations_container">
             <h5>{{ __('Observaciones') }}</h5>
             <div id="observations">
-                <div id="observation" class="row">
-                    <div class="form-group col-md-3 mb-2">
-                        <label for="observation_date_0" class="form-label">{{ __('Fecha:') }}</label>
-                        <input type="date" name="observations[0][observation_date]" class="form-control" id="observation_date_0" value="{{ \Carbon\Carbon::now()->toDateString() }}">
-                    </div>
+                <!-- Iterar sobre las observaciones existentes -->
+                @foreach($expedient->observations as $index => $observation)
+                    <div id="observation" class="row" style="border-top: 1px solid black; padding-top: 20px;">
+                        <div class="form-group col-md-3 mb-2">
+                            <label for="observation_date_{{ $index }}" class="form-label">{{ __('Fecha:') }}</label>
+                            <input type="date" name="observations[{{ $index }}][observation_date]" class="form-control" id="observation_date_{{ $index }}" value="{{ old('observations.' . $index . '.observation_date', $observation->observation_date ? $observation->observation_date->format('Y-m-d') : '') }}">
+                        </div>
 
-                    <div class="form-group col-md-3 mb-2">
-                        <label for="observation_0" class="form-label">{{ __('Observación:') }}</label>
-                        <input type="text" name="observations[0][observation]" class="form-control" id="observation_0">
-                    </div>
+                        <div class="form-group col-md-3 mb-2">
+                            <label for="observation_{{ $index }}" class="form-label">{{ __('Observación:') }}</label>
+                            <input type="text" name="observations[{{ $index }}][observation]" class="form-control" id="observation_{{ $index }}" value="{{ old('observations.' . $index . '.observation', $observation->observation) }}">
+                        </div>
 
-                    <div class="form-group col-md-3 mb-2">
-                        <label for="instruction_0" class="form-label">{{ __('Instrucciones:') }}</label>
-                        <input type="text" name="observations[0][instruction]" class="form-control" id="instruction_0">
-                    </div>
+                        <div class="form-group col-md-3 mb-2">
+                            <label for="instruction_{{ $index }}" class="form-label">{{ __('Instrucciones:') }}</label>
+                            <input type="text" name="observations[{{ $index }}][instruction]" class="form-control" id="instruction_{{ $index }}" value="{{ old('observations.' . $index . '.instruction', $observation->instruction) }}">
+                        </div>
 
-                    <div class="form-group col-md-3 mb-2">
-                        <label for="id_user_0" class="form-label">{{ __('Creado por:') }}</label>
-                        <input type="text" name="observations[0][id_user]" class="form-control" id="id_user_0" value="{{auth()->user()->name}}" readonly onmousedown="return false;">
+                        <div class="form-group col-md-3 mb-2">
+                            <label for="id_user_{{ $index }}" class="form-label">{{ __('Creado por:') }}</label>
+                            <input type="text" name="observations[{{ $index }}][id_user]" class="form-control" id="id_user_{{ $index }}" value="{{ $observation->user->name }}" readonly onmousedown="return false;">
+                        </div>
+                        <!-- Campo oculto para el ID de la observación -->
+                        <input type="hidden" name="observations[{{ $index }}][id]" value="{{ $observation->id }}">
                     </div>
-                </div>
+                @endforeach
             </div>
             <button type="button" class="btn btn-secondary mt-2" id="addObservation">{{ __('Agregar Observación') }}</button>
         </div>

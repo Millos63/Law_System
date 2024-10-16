@@ -32,7 +32,11 @@ class Observation extends Model
      * @var array<int, string>
      */
     protected $fillable = ['id_expedient', 'id_user', 'observation', 'instruction', 'observation_date'];
-
+    
+    // Agrega esta propiedad a la fecha
+    protected $casts = [
+        'observation_date' => 'date',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
