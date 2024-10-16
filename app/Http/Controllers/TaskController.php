@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
+
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
@@ -27,9 +30,13 @@ class TaskController extends Controller
      */
     public function create(): View
     {
-        $task = new Task();
+        //Para accerder a Users
+        $users = User::all();
 
-        return view('task.create', compact('task'));
+        $task = new Task();
+        
+
+        return view('task.create', compact('task', 'users'));
     }
 
     /**

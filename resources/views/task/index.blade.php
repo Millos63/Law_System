@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Tasks') }}
+                                {{ __('Tareas') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('tasks.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Nueva Tarea') }}
                                 </a>
                               </div>
                         </div>
@@ -36,10 +36,10 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Id User</th>
-									<th >Start Date</th>
-									<th >Finish Date</th>
-									<th >Task</th>
+									<th >Usuario</th>
+									<th >Fecha Inicio</th>
+									<th >Fecha Final</th>
+									<th >Tarea</th>
 
                                         <th></th>
                                     </tr>
