@@ -270,6 +270,13 @@ class ExpedientController extends Controller
 
         ]));
 
+        //Nombre de la carpeta basado en el numero de expediente
+        $folderName = 'expedientes/' . $expedient -> expedient_number;
+        
+        //Crear directortios si no existen
+        Storage::makeDirectory("public/$folderName/Promociones");
+        Storage::makeDirectory("public/$folderName/Acuerdos");
+
         //Actualizar las promociones y acuerdos
         $promotions = $request->input('promotions', []);
 
@@ -295,37 +302,53 @@ class ExpedientController extends Controller
                         if($promotion->promotion_file){
                             Storage::disk('public')->delete($promotion->promotion_file); 
                         }
-                        $promotion->promotion_file = $promotionFile->store('promotions','public');
+                        //Guardar el archivo con un nombre personalizado,
+                        // En este caso va a ser con el tiempo, así como con el nombre original
+                        $promotionFileName = time().'_' . $promotionFile->getClientOriginalName();
+                        $promotionFilePath = $promotionFile->storeAs('public/' . $folderName . '/Promociones', $promotionFileName);
+                        $promotion->promotion_file = $promotionFilePath;
                     }
+
 
                     if($accordFile && $accordFile->isValid()){
                         if($promotion->accord_file){
                             Storage::disk('public')->delete($promotion->accord_file);
                         }
-                        $promotion->accord_file = $accordFile->store('accords', 'public');
+                        //Guardaremos el nombre y la ruta personalizada
+                        $accordFileName = time() . '_' . $accordFile->getClientOriginalName();
+                        $accordFilePath = $accordFile ->storeAs('public/' . $folderName . '/Acuerdos', $accordFileName);
+                        $promotion->accord_file = $accordFilePath;
+
                     }
 
                     $promotion->save();
                 }
             } else {
                 // Crear nueva promoción/acuerdo
-                $newPromotion = new PromotionsAccord();
-                $newPromotion->id_expedient = $expedient->id;
-                $newPromotion->promotion_date = $promotionData['promotion_date'];
-                $newPromotion->promotion_description = $promotionData['promotion_description'];
-                $newPromotion->accord_date = $promotionData['accord_date'];
-                $newPromotion->accord_description = $promotionData['accord_description'];
+
+                $promotionFilePath = null;
+                $accordFilePath = null;
 
                 // Manejo de archivos
                 if ($promotionFile && $promotionFile->isValid()) {
-                    $newPromotion->promotion_file = $promotionFile->store('promotions', 'public');
+                    $promotionFileName = time() . '_' . $promotionFile->getClientOriginalName();
+                    $promotionFilePath = $promotionFile -> storeAs('public/' . $folderName . 'Promociones', $promotionFileName);
                 }
 
                 if ($accordFile && $accordFile->isValid()) {
-                    $newPromotion->accord_file = $accordFile->store('accords', 'public');
+                    $accordFileName = time() . '_' . $accordFile->getClientOriginalName();
+                    $promotionFilePath = $accordFile->storeAs('public/' . $folderName . 'Acuerdos', $accordFileName);
                 }
 
-                $newPromotion->save();
+                $expedient->promotionsAccords()->create([
+                    'id_expedient' => $expedient->id,
+                    'promotion_file' => $promotionFilePath,
+                    'promotion_date' => $promotionData['promotion_date'],
+                    'promotion_description' => $promotionData['promotion_description'],
+                    'accord_file' => $accordFilePath,
+                    'accord_date' => $promotionData['accord_date'],
+                    'accord_description' => $promotionData['accord_description'],
+                ]);
             }
         }
 

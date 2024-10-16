@@ -3,14 +3,14 @@
 .promotion_container {
     border: 1px solid #ddd;
     padding: 10px;
-    max-height: 350px; /* Ajusta esta altura según tus necesidades */
+    height:700px; /* Ajusta esta altura según tus necesidades */
     overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
 }
 
 .files_container{
     border: 1px solid #ddd;
     padding: 10px;
-    max-height: 350px; /* Ajusta esta altura según tus necesidades */
+    height: 700px; /* Ajusta esta altura según tus necesidades */
     overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
 }
 
@@ -19,4 +19,8 @@
     padding: 10px;
     max-height: 170px; /* Ajusta esta altura según tus necesidades */
     overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
+}
+
+.section_title{
+    padding-bottom: 15px;
 }

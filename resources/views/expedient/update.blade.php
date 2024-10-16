@@ -195,9 +195,8 @@
 
     <div class="col-md-6">
         <!-- SECCIÓN DE PROMOCIONES Y ACUERDOS -->
-        
+        <h5 class="section_title">{{ __('Promociones y Acuerdos') }}</h5>    
         <div class="promotion_container">
-        <h5>{{ __('Promociones y Acuerdos') }}</h5>    
             <div id="promotions">
 
                 <!--Para recorrer todas nuestras promociones y acuerdos-->
@@ -206,8 +205,6 @@
                     <div class="row" style="border-top: 1px solid black; padding-top: 30px">
                         <!-- División para promociones -->
                         <div class="col-md-6">
-                            
-                        
                         
                         <div class="form-group mb-2">
                                 <label for="promotion_file_{{ $index }}" class="form-label">{{ __('Archivo de Promoción:') }}</label>
@@ -232,7 +229,7 @@
                                             <a href="{{Storage::url($promotion->promotion_file)}}" download>Descargar archivo</a>
                                         </div>
                                     @endif
-                                    <a href="{{ Storage::url($promotion->accord_file) }}" target="_blank">Ver archivo</a>
+                                    <a href="{{ Storage::url($promotion->promotion_file) }}" target="_blank">Ver archivo</a>
                                 @endif
                             </div>
                             
@@ -310,8 +307,9 @@
 
     <div class="col-md-6">
         <!-- SECCIÓN DE OTROS ARCHIVOS -->
+        <h5 class="section_title">{{ __('Otros Archivos') }}</h5>
         <div class="files_container">
-            <h5>{{ __('Otros Archivos') }}</h5>
+            
             <div id="files">
                 <div id="file">
                     
