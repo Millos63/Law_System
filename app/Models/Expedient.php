@@ -79,7 +79,7 @@ class Expedient extends Model
      */
     public function expedientFiles()
     {
-        return $this->hasMany(\App\Models\ExpedientFile::class, 'id', 'id_expedient');
+        return $this->hasMany(\App\Models\ExpedientFile::class, 'id_expedient', 'id');
     }
     
     /**

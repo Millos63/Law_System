@@ -31,6 +31,12 @@ class ExpedientFile extends Model
      */
     protected $fillable = ['id_expedient', 'file', 'file_date', 'description'];
 
+    protected $casts = [
+        'file_date' => 'date',
+       
+    ];
+
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

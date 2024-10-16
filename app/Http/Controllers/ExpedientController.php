@@ -273,9 +273,11 @@ class ExpedientController extends Controller
         //Nombre de la carpeta basado en el numero de expediente
         $folderName = 'expedientes/' . $expedient -> expedient_number;
         
-        //Crear directortios si no existen
+        //Crear directortios si no existen para promociones y acuerdos
         Storage::makeDirectory("public/$folderName/Promociones");
         Storage::makeDirectory("public/$folderName/Acuerdos");
+        //Directorio para los archivos de expedientes
+        Storage::makeDirectory("public/$folderName/Archivos");
 
         //Actualizar las promociones y acuerdos
         $promotions = $request->input('promotions', []);
@@ -351,6 +353,55 @@ class ExpedientController extends Controller
                 ]);
             }
         }
+
+
+
+        //-------Seccion de actualizacion de archivos ------///
+
+        $files = $request->input('files', []);
+
+        foreach($files as $index => $fileData){
+            //Obtener el archivo del request
+            $file = $request->file("files.$index.file");
+
+            if(!empty($fileData['id'])) {
+                //Actualizar archivo del expediente
+                $expedientFile = ExpedientFile::findOrFail($fileData['id']);
+                $expedientFile->file_date = $fileData['file_date'];
+                $expedientFile->description = $fileData['description'];
+
+
+                //Manejo de archivo
+                if($file && $file->isValid()) {
+                    //Eliminar el archivo anterior si es necesario
+                    if($expedientFile->file) {
+                        Storage::disk('public')->delete($expedientFile->file);
+                    }
+                    //Guardar el archivo con un nombre personalizado
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+                    $filePath =  $file ->storeAs('public/' . $folderName . '/Archivos', $fileName);
+                    $expedientFile->file=$filePath;
+                }
+                $expedientFile->save();
+            }else{
+                //Crear un nuevo archivo
+                $filePath = null;
+
+                //Manejo del archivo
+                if($file && $file->isValid()){
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+                    $filePath = $file->storeAs('public/' . $folderName . '/Archivos', $fileName);
+                }
+
+                $expedient->expedientFiles()->create([
+                    'id_expedient' => $expedient -> id,
+                    'file' => $filePath,
+                    'file_date' => $fileData['file_date'],
+                    'description' => $fileData['description'],
+                ]);
+            }
+        }
+
 
         return Redirect::route('expedients.index')
             ->with('success', 'Expedient updated successfully');

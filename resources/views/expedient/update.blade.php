@@ -233,9 +233,6 @@
                                 @endif
                             </div>
                             
-                            
-                            
-                            
                             <div class="form-group mb-2">
                                 <label for="promotion_date_{{ $index }}" class="form-label">{{ __('Fecha de Promoción:') }}</label>
                                 <input type="date" name="promotions[{{ $index }}][promotion_date]" class="form-control" id="promotion_date_{{ $index }}" value="{{ old('promotions.' . $index . '.promotion_date', $promotion->promotion_date ? $promotion->promotion_date->format('Y-m-d') : ''  ) }}">
@@ -308,24 +305,45 @@
     <div class="col-md-6">
         <!-- SECCIÓN DE OTROS ARCHIVOS -->
         <h5 class="section_title">{{ __('Otros Archivos') }}</h5>
-        <div class="files_container">
-            
+        <div class="files_container">    
             <div id="files">
-                <div id="file">
-                    
-                    <div class="form-group mb-2">
-                        <label for="file_0" class="form-label">{{ __('Archivo:') }}</label>
-                        <input type="file" name="files[0][file]" class="form-control" id="file_0">
+                <!--Para recorrer nuestros archivos existentes-->
+                @foreach($expedient->expedientFiles as $index => $file)
+                    <div id="file" style="border-top: 1px solid black; padding-top: 30px">
+                        <div class="form-group mb-2">
+                            <label for="file_{{ $index }}" class="form-label">{{ __('Archivo:') }}</label>
+                            <input type="file" name="files[{{ $index }}][file]" class="form-control" id="file_{{ $index }}">
+                            @if($file->file)
+                                @php
+                                    $extension = strtolower(pathinfo($file->file, PATHINFO_EXTENSION));
+                                @endphp
+
+                                @if(in_array($extension, ['pdf', 'jpg', 'jpeg', 'png']))
+                                    <div class="mb-2">
+                                        <iframe src="{{ Storage::url($file->file) }}" width="100%" height="250px"></iframe>
+                                    </div>
+                                    <div class="mb-2">
+                                        <a href="{{ Storage::url($file->file) }}" download>Descargar archivo</a>
+                                    </div>
+                                @else
+                                    <div class="mb-2">
+                                        <a href="{{ Storage::url($file->file) }}" download>Descargar archivo</a>
+                                    </div>
+                                @endif
+                            @endif
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="file_date_{{ $index }}" class="form-label">{{ __('Fecha del Archivo:') }}</label>
+                            <input type="date" name="files[{{ $index }}][file_date]" class="form-control" id="file_date_{{ $index }}" value="{{ old('files.' . $index . '.file_date', $file->file_date ? $file->file_date->format('Y-m-d') : '') }}">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="description_{{ $index }}" class="form-label">{{ __('Descripción:') }}</label>
+                            <input type="text" name="files[{{ $index }}][description]" class="form-control" id="description_{{ $index }}" placeholder="Descripción" value="{{ old('files.' . $index . '.description', $file->description) }}">
+                        </div>
+                        <!-- Campo oculto para el ID del archivo -->
+                        <input type="hidden" name="files[{{ $index }}][id]" value="{{ $file->id }}">
                     </div>
-                    <div class="form-group mb-2">
-                        <label for="file_date_0" class="form-label">{{ __('Fecha:') }}</label>
-                        <input type="date" name="files[0][file_date]" class="form-control" id="file_date_0">
-                    </div>
-                    <div class="form-group mb-2">
-                        <label for="description_0" class="form-label">{{ __('Descripción:') }}</label>
-                        <input type="text" name="files[0][description]" class="form-control" id="description_0">
-                    </div>
-                </div>
+                @endforeach
             </div>
             <button type="button" class="btn btn-secondary mt-2" id="addFile">{{ __('Agregar Archivo') }}</button>
         </div>
