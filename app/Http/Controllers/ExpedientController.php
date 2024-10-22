@@ -50,7 +50,7 @@ class ExpedientController extends Controller
         $expedient = new Expedient();
         //Para crear un nuevo cliente
         $client = new Client();
-        //Coleccion vacia para crear un nuevo expediente.
+        //Colección vacia para crear un nuevo expediente.
 
         $promotionsAccords = collect();
 

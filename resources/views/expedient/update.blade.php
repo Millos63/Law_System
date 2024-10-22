@@ -39,15 +39,17 @@
                         <input type="text" name="direction" class="form-control @error('direction') is-invalid @enderror" value="{{ old('direction', $client?->direction) }}" id="direction" placeholder="Dirección" >
                         {!! $errors->first('direction', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                     </div>
-                </div>
 
-                 <!-- Segunda mitad de los campos -->
-                 <div class="col-md-6">
                     <div class="form-group mb-2">
                         <label for="gender" class="form-label">{{ __('Genero:') }}</label>
                         <input type="text" name="gender" class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender', $client?->gender) }}" id="gender" placeholder="Genero" >
                         {!! $errors->first('gender', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                     </div>
+                </div>
+
+                 <!-- Segunda mitad de los campos -->
+                 <div class="col-md-6">
+                    
 
                     <div class="form-group mb-2">
                         <label for="phone_number" class="form-label">{{ __('Teléfono:') }}</label>
