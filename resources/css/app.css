@@ -3,3 +3,20 @@
 .expedient_number{
     background-color: black;
 }
+
+/* Sidebar estilos */
+.sidebar {
+    width: 250px;
+    background-color: #f8f9fa;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding-top: 20px;
+}
+
+/* Estilo para el contenido principal */
+.main-content {
+    margin-left: 250px; /* Deja espacio para el sidebar */
+    padding: 20px;
+}

@@ -36,10 +36,13 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Usuario</th>
+									<th >Responsable</th>
 									<th >Fecha Inicio</th>
 									<th >Fecha Final</th>
 									<th >Tarea</th>
+
+                                    <!--Agregar sección para marcar la tarea como finalizada-->
+                                    <th>Estatus</th>
 
                                         <th></th>
                                     </tr>
@@ -49,10 +52,12 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-										<td >{{ $task->id_user }}</td>
+                                        
+                                        <td >{{ $task->user->name }} </td>
 										<td >{{ $task->start_date }}</td>
 										<td >{{ $task->finish_date }}</td>
 										<td >{{ $task->task }}</td>
+                                        <td >{{ $task->task_state }}</td>
 
                                             <td>
                                                 <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">

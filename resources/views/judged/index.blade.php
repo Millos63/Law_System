@@ -36,8 +36,8 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Judged Number</th>
-									<th >Id Matter</th>
+									<th >Número de Juzgado</th>
+									<th >Materia</th>
 
                                         <th></th>
                                     </tr>
@@ -48,7 +48,9 @@
                                             <td>{{ ++$i }}</td>
                                             
 										<td >{{ $judged->judged_number }}</td>
-										<td >{{ $judged->id_matter }}</td>
+
+                                        <td >{{ $judged->matter->matter }} </td>
+
 
                                             <td>
                                                 <form action="{{ route('judgeds.destroy', $judged->id) }}" method="POST">

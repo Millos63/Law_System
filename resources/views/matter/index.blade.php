@@ -36,7 +36,7 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Matter</th>
+									<th >Materia</th>
 
                                         <th></th>
                                     </tr>

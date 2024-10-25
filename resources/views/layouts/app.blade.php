@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('pap.name', 'MEEC') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -22,8 +22,10 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+
+
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    MEEC
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -35,20 +37,25 @@
                     @if(Auth::check())
                     <!--NAVLINK CON MIS RUTAS-->
                         <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('clients.index') }}">{{__('Clientes')}}</a>
-                            </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('expedients.index') }}">{{__('Expedientes')}}</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('expedients-all.index') }}">{{__('ExpedientesAll')}}</a>
+                                <a class="nav-link" href="{{ route('tasks.index') }}">{{__('Tareas')}}</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('expedient-files.index') }}">{{__('ArchivosExpediente')}}</a>
+                                <a class="nav-link" href="{{ route('clients.index') }}">{{__('Clientes')}}</a>
                             </li>
+                            <!--ESTE ES UNA COPIA DE NUESTRO EXPEDIENTES PRINCIPAL-->
+                            <!--
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('expedients-all.index') }}">{{__('ExpedientesAll')}}</a>
+                            </li>
+                            -->
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('judgeds.index') }}">{{__('Juzgados')}}</a>
                             </li>
@@ -58,9 +65,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('judments.index') }}">{{__('Juicios')}}</a>
                             </li>
+
+                            <!--Menus ocultos-->
+                            <!--
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('observations.index') }}">{{__('Observaciones')}}</a>
                             </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('pieces.index') }}">{{__('Piezas')}}</a>
                             </li>
@@ -72,11 +83,12 @@
                             </li>
 
 
-                            
-                            
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('tasks.index') }}">{{__('Tareas')}}</a>
+                                <a class="nav-link" href="{{ route('expedient-files.index') }}">{{__('ArchivosExpediente')}}</a>
                             </li>
+                            -->
+
+
 
                         </ul>
                     @endif
@@ -97,6 +109,9 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item" style="padding-top: 8px; padding-left:10px">
+                                <a>Usuario: </a>
+                            </li>   
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -106,7 +121,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Cerrar Sesión') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

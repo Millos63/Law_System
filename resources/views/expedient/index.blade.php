@@ -38,7 +38,7 @@
                                     <tr>
                                         <th></th>
                                         
-									<th class="expedient_number" >Expediente</th>
+									<th class="expedient_number" > No. Expediente</th>
 									<th >Cliente</th>
                                     <th >Contraparte</th>
                                     <th >Juicio</th>

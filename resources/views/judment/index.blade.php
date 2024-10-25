@@ -36,7 +36,7 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Judment</th>
+									    <th >Juicio</th>
 
                                         <th></th>
                                     </tr>
