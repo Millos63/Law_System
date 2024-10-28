@@ -309,7 +309,7 @@
         
 
 <div class="col-md-12 mt-3">
-    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+    <button type="submit" class="btn btn-primary">{{ __('Guardar') }}</button>
 </div>
 </div>
 

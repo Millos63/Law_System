@@ -28,6 +28,16 @@
             {!! $errors->first('task', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
+        <div class="form-group mb-2 mb20">
+            <label for="task_state" class="form-label">{{ __('Estado:') }}</label>
+            <select name="task_state" class="form-control @error('task_state') is-invalid @enderror" id="task_state">
+                <option value="Pendiente" {{ old('task_state', $task?->task_state) == 'Pendiente' ? 'selected' : '' }}>{{ __('Pendiente') }}</option>
+                <option value="En Progreso" {{ old('task_state', $task?->task_state) == 'En Progreso' ? 'selected' : '' }}>{{ __('En Progreso') }}</option>
+                <option value="Completado" {{ old('task_state', $task?->task_state) == 'Completado' ? 'selected' : '' }}>{{ __('Completado') }}</option>
+            </select>
+            {!! $errors->first('task_state', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+        </div>
+
     </div>
     <div class="col-md-12 mt20 mt-2">
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>

@@ -25,7 +25,8 @@ class TaskRequest extends FormRequest
 			'id_user' => 'required',
 			'start_date' => 'required',
 			'task' => 'required|string',
-            'finish_date' => 'date|nullable'
+            'finish_date' => 'date|nullable',
+            'task_state' => 'required'
         ];
     }
 }

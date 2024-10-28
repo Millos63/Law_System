@@ -29,7 +29,7 @@ class Task extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['id_user', 'start_date', 'finish_date', 'task'];
+    protected $fillable = ['id_user', 'start_date', 'finish_date', 'task', 'task_state'];
 
 
     /**

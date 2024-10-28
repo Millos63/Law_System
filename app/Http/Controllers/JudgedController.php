@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Matter;
+
 use App\Models\Judged;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,9 +29,14 @@ class JudgedController extends Controller
      */
     public function create(): View
     {
-        $judged = new Judged();
+        //Para cargar las materias al formulario
+        $matters = Matter::all();
 
-        return view('judged.create', compact('judged'));
+
+        $judged = new Judged();
+        
+
+        return view('judged.create', compact('judged','matters'));
     }
 
     /**
