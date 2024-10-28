@@ -76,7 +76,7 @@
 
                                             <td>
                                                 <form action="{{ route('expedients.destroy', $expedient->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('expedients.show', $expedient->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <!--<a class="btn btn-sm btn-primary " href="{{ route('expedients.show', $expedient->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>-->
                                                     <a class="btn btn-sm btn-success" href="{{ route('expedients.edit', $expedient->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
