@@ -19,8 +19,8 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('expedients.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Expediente') }}
+                                <a href="{{ route('expedients.create') }}" class="btn btn-sm float-right" style="background-color: #4caf50; color: #ffffff; border: none;" data-placement="left">
+                                    {{ __('Crear Expediente') }}
                                 </a>
                               </div>
                         </div>
@@ -75,13 +75,17 @@
 
 
                                             <td>
-                                                <form action="{{ route('expedients.destroy', $expedient->id) }}" method="POST">
-                                                    <!--<a class="btn btn-sm btn-primary " href="{{ route('expedients.show', $expedient->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>-->
-                                                    <a class="btn btn-sm btn-success" href="{{ route('expedients.edit', $expedient->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Ver') }}</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Borrar') }}</button>
-                                                </form>
+                                            <form action="{{ route('expedients.destroy', $expedient->id) }}" method="POST">
+                                                <!--<a class="btn btn-sm btn-primary" href="{{ route('expedients.show', $expedient->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>-->
+                                                <a class="btn btn-sm" href="{{ route('expedients.edit', $expedient->id) }}" style="background-color: #B8860B; color: #ffffff; border: none;">
+                                                    <i class="fa fa-fw fa-edit"></i> {{ __('Ver') }}
+                                                </a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm" style="background-color: #DB530F; color: #ffffff; border: none;" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">
+                                                    <i class="fa fa-fw fa-trash"></i> {{ __('Borrar') }}
+                                                </button>
+                                            </form>
                                             </td>
                                         </tr>
                                     @endforeach

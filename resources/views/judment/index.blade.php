@@ -18,7 +18,7 @@
 
                              <div class="float-right">
                                 <a href="{{ route('judments.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Nuevo Juicio') }}
                                 </a>
                               </div>
                         </div>
@@ -50,11 +50,11 @@
 
                                             <td>
                                                 <form action="{{ route('judments.destroy', $judment->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('judments.show', $judment->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('judments.edit', $judment->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <!--<a class="btn btn-sm btn-primary " href="{{ route('judments.show', $judment->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>-->
+                                                    <a class="btn btn-sm btn-success" href="{{ route('judments.edit', $judment->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Ver') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Borrar') }}</button>
                                                 </form>
                                             </td>
                                         </tr>

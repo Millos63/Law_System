@@ -17,14 +17,52 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <style>
+        body {
+            background-color: #f5ebdc;
+        }
+
+        .navbar {
+            background: linear-gradient(45deg, #B8860B, #ffeb8b) !important; /* Golden gradient for header */
+            border-bottom: 2px solid #ffeb8b;
+        }
+
+        .navbar .navbar-brand, .navbar .nav-link, .navbar .dropdown-item {
+            color: #fff !important;
+        }
+
+        .navbar .navbar-brand:hover, .navbar .nav-link:hover, .navbar .dropdown-item:hover {
+            color: #f5ebdc !important;
+        }
+
+        .navbar-toggler {
+            border-color: #f5ebdc;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28245, 235, 220, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .dropdown-menu {
+            background: linear-gradient(45deg, #B8860B, #ffeb8b);
+        }
+
+        .dropdown-item {
+            color: #f5ebdc !important;
+        }
+
+        .dropdown-item:hover {
+            background-color: #ffeb8b;
+            color: #fff !important;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
-
-
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/expedients') }}">
                     MEEC
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -113,7 +151,7 @@
                                 <a>Usuario: </a>
                             </li>   
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: #000000 !important;">
                                     {{ Auth::user()->name }}
                                 </a>
 
