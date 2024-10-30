@@ -79,7 +79,6 @@
                                 {{$judged->judged_number}} {{$judged->matter->matter}}
                             </option>
                         @endforeach
-                        <option value='new_judged'>{{ __('Nuevo') }}</option>
                     </select>
                     {!! $errors->first('id_judged', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                 </div>

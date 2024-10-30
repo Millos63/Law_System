@@ -66,8 +66,9 @@ class JudgedController extends Controller
     public function edit($id): View
     {
         $judged = Judged::find($id);
+        $matters = Matter::all();
 
-        return view('judged.edit', compact('judged'));
+        return view('judged.edit', compact('judged', 'matters'));
     }
 
     /**

@@ -17,6 +17,18 @@
                             <span id="card_title">
                                 {{ __('Expedientes') }}
                             </span>
+                            
+                            
+                            <!-- Formulario de Búsqueda -->
+                            <form action="{{route('expedients.index') }}" method="GET" class="form-inline">
+                                <div class="input-group">
+                                    <input type="text" name="search" class="form-control" placeholder="Buscar..." value="{{ request('search') }}">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+
+                                    </div>
+                                </div>
+                            </form>
 
                              <div class="float-right">
                                 <a href="{{ route('expedients.create') }}" class="btn btn-sm float-right" style="background-color: #4caf50; color: #ffffff; border: none;" data-placement="left">

@@ -28,7 +28,25 @@ class ExpedientController extends Controller
      */
     public function index(Request $request): View
     {
-        $expedients = Expedient::paginate();
+
+        //Obtener el t'ermino de busqueda desde la solicitud
+        $search = $request->input('search');
+        $expedients = Expedient::with('client');
+
+        //Comprobar si hay un termino de b'usqueda
+        if($search){
+            $expedients = $expedients->where(function($query) use ($search){
+                $query->where('expedient_number', 'like', "%{$search}%")
+                    ->orWhere('counter_party' , 'like', "%{$search}%")
+                    ->orWhereHas('client', function($q) use ($search){
+                        $q->where('first_name', 'like', "%{$search}%")
+                          ->orWhere('last_name', 'like', "%{$search}%");
+                    });
+            });
+        }
+        $expedients = $expedients->paginate(10);
+
+
 
         return view('expedient.index', compact('expedients'))
             ->with('i', ($request->input('page', 1) - 1) * $expedients->perPage());
