@@ -3,11 +3,12 @@
 .promotion_container {
     border: 1px solid #ddd;
     padding: 10px;
-    height:700px; /* Ajusta esta altura según tus necesidades */
+    height:300px; /* Ajusta esta altura según tus necesidades */
     overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
 }
 
 .files_container{
+    
     border: 1px solid #ddd;
     padding: 10px;
     height: 700px; /* Ajusta esta altura según tus necesidades */

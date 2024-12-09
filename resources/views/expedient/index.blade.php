@@ -24,14 +24,14 @@
                                 <div class="input-group">
                                     <input type="text" name="search" class="form-control" placeholder="Buscar..." value="{{ request('search') }}">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                                        <button class="btn btn-outline-secondary" style="border-color:#3498DB;" type="submit">Buscar</button>
 
                                     </div>
                                 </div>
                             </form>
 
                              <div class="float-right">
-                                <a href="{{ route('expedients.create') }}" class="btn btn-sm float-right" style="background-color: #4caf50; color: #ffffff; border: none;" data-placement="left">
+                                <a href="{{ route('expedients.create') }}" class="btn btn-sm float-right" style="background-color: #28A745; color: #ffffff; border: none;" data-placement="left">
                                     {{ __('Crear Expediente') }}
                                 </a>
                               </div>
@@ -45,7 +45,7 @@
 
                     <div class="card-body bg-white">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover" style="border: 3px solid #E0E0E0;" >
                                 <thead class="thead">
                                     <tr>
                                         <th></th>
@@ -76,7 +76,7 @@
 										<td >{{ $expedient->authority }}</td>
 
 										<td>
-                                            <a href="{{ $expedient->expedient_link }}">
+                                            <a href="{{ $expedient->expedient_link }}" style="color: #3498DB">
                                                 {{Str::limit($expedient->expedient_link, 35)}}
                                             </a>
                                             
@@ -89,12 +89,12 @@
                                             <td>
                                             <form action="{{ route('expedients.destroy', $expedient->id) }}" method="POST">
                                                 <!--<a class="btn btn-sm btn-primary" href="{{ route('expedients.show', $expedient->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>-->
-                                                <a class="btn btn-sm" href="{{ route('expedients.edit', $expedient->id) }}" style="background-color: #B8860B; color: #ffffff; border: none;">
+                                                <a class="btn btn-sm" href="{{ route('expedients.edit', $expedient->id) }}" style="background-color: #3498DB; color: #ffffff; border: none;">
                                                     <i class="fa fa-fw fa-edit"></i> {{ __('Ver') }}
                                                 </a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm" style="background-color: #DB530F; color: #ffffff; border: none;" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">
+                                                <button type="submit" class="btn btn-sm" style="background-color: #E74C3C; color: #ffffff; border: none;" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">
                                                     <i class="fa fa-fw fa-trash"></i> {{ __('Borrar') }}
                                                 </button>
                                             </form>

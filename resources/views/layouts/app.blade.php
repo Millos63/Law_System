@@ -19,25 +19,28 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <style>
-        body {
-            background-color: #f5ebdc;
+        body {              
+            background-color: #fff ;
         }
 
         .navbar {
-            background: linear-gradient(45deg, #B8860B, #ffeb8b) !important; /* Golden gradient for header */
-            border-bottom: 2px solid #ffeb8b;
+            padding-top: 12px;    /* Aumenta el espacio superior */
+            padding-bottom: 17px; /* Aumenta el espacio inferior */
+            background-color: #141414 !important; /* Fondo negro */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */        
         }
 
         .navbar .navbar-brand, .navbar .nav-link, .navbar .dropdown-item {
-            color: #fff !important;
+            color: #D6E7F0 !important; /* Gris claro */
+            transition: color 0.3s ease; /* Animación de cambio de color */       
         }
 
         .navbar .navbar-brand:hover, .navbar .nav-link:hover, .navbar .dropdown-item:hover {
-            color: #f5ebdc !important;
+            color: #3498DB !important; /* Azul claro en hover */        
         }
 
         .navbar-toggler {
-            border-color: #f5ebdc;
+            border-color: #fff;
         }
 
         .navbar-toggler-icon {
@@ -45,16 +48,18 @@
         }
 
         .dropdown-menu {
-            background: linear-gradient(45deg, #B8860B, #ffeb8b);
+            background-color: #1F1F1F; /* Negro más claro */
+            border: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
         }
 
         .dropdown-item {
-            color: #f5ebdc !important;
+            color: #B0BEC5 !important; /* Gris claro */
         }
 
         .dropdown-item:hover {
-            background-color: #ffeb8b;
-            color: #fff !important;
+            background-color: #3498DB; /* Azul claro */
+            color: #FFFFFF !important;
         }
     </style>
 </head>
@@ -147,11 +152,11 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item" style="padding-top: 8px; padding-left:10px">
+                            <li class="nav-item" style="padding-top: 8px; padding-left:10px; color: #fff">
                                 <a>Usuario: </a>
                             </li>   
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: #000000 !important;">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: #FFF !important;">
                                     {{ Auth::user()->name }}
                                 </a>
 

@@ -39,8 +39,8 @@ class ExpedientController extends Controller
                 $query->where('expedient_number', 'like', "%{$search}%")
                     ->orWhere('counter_party' , 'like', "%{$search}%")
                     ->orWhereHas('client', function($q) use ($search){
-                        $q->where('first_name', 'like', "%{$search}%")
-                          ->orWhere('last_name', 'like', "%{$search}%");
+                        $q->where('first_name', 'like', "%{$search}")
+                          ->orWhere('last_name', 'like', "%{$search}");
                     });
             });
         }

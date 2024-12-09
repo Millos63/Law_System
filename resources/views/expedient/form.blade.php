@@ -25,7 +25,7 @@
                                     {{$client->first_name}} {{$client->last_name}}
                                 </option>
                             @endforeach
-                            <option value='new_client'>{{ __('Crear nuevo cliente') }}</option>
+                            <option value='new_client' style="background-color: #73D1FF">{{ __('Crear nuevo cliente') }}</option>
                         </select>
                         {!! $errors->first('id_client', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                     </div>
@@ -200,7 +200,7 @@
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-12">
         <!-- SECCIÓN DE PROMOCIONES Y ACUERDOS -->
         <div class="promotion_container">
             <h5>{{ __('Promociones y Acuerdos') }}</h5>
@@ -244,7 +244,7 @@
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-12">
         <!-- SECCIÓN DE OTROS ARCHIVOS -->
         <div class="files_container">
             <h5>{{ __('Otros Archivos') }}</h5>
